@@ -1,1 +1,13 @@
+title: "Yaksh Patel"
+description: "Data Science | Credit Risk | Fintech"
+baseurl: ""
 url: "https://yaksh-patel.github.io"
+
+theme: minima
+
+header_pages:
+  - about.md
+  - projects.md
+  - blog.md
+
+markdown: kramdown
