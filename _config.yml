@@ -1,13 +1,116 @@
+# ============================================================
+#  _config.yml — Site-wide settings for Yaksh Patel's website
+#  Edit this file to change global info shown across the site
+# ============================================================
+
+# ----- IDENTITY -----
 title: "Yaksh Patel"
-description: "Data Science | Credit Risk | Fintech"
-baseurl: ""
+tagline: "Data Scientist · Credit Risk · Fintech"
+description: >
+  Personal website of Yaksh Patel — Senior Data Scientist working on
+  machine learning, credit risk modelling, and fintech systems.
+
+author:
+  name: "Yaksh Patel"
+  bio: >
+    Senior Data Scientist building scalable ML systems for credit risk
+    and financial decision-making. Passionate about turning messy data
+    into reliable production models.
+  location: "India"
+  avatar: "/assets/images/avatar.jpg"   # Replace with your photo
+  email: "yaksh.10.patel@gmail.com"               # Replace with your email
+  github: "Yaksh-Patel"
+  linkedin: "yaksh-patel"               # LinkedIn username only
+  twitter: ""                           # Twitter/X handle (leave blank to hide)
+  kaggle: ""                            # Kaggle username (leave blank to hide)
+
+# ----- URLS -----
+baseurl: ""          # Keep empty for username.github.io sites
 url: "https://yaksh-patel.github.io"
 
-theme: minima
+# ----- NAVIGATION -----
+# Pages listed here will appear in the top navbar (in order)
+# Each entry must have a matching .md or index.html file
+nav_pages:
+  - title: "Home"
+    url: "/"
+  - title: "About"
+    url: "/about/"
+  - title: "Projects"
+    url: "/projects/"
+  - title: "Blog"
+    url: "/blog/"
+  - title: "Publications"
+    url: "/publications/"
 
-header_pages:
-  - about.md
-  - projects.md
-  - blog.md
+# ----- SIDEBAR STATS (shown on homepage) -----
+# Update these manually whenever your counts change
+stats:
+  posts: 0
+  projects: 0
+  years_experience: 3
 
+# ----- SIDEBAR CATEGORIES -----
+# These are content categories shown in the left sidebar
+# Adjust labels and urls to match your content structure
+sidebar_categories:
+  - label: "machine-learning"
+    url: "/blog/category/machine-learning/"
+  - label: "credit-risk"
+    url: "/blog/category/credit-risk/"
+  - label: "python"
+    url: "/blog/category/python/"
+  - label: "statistics"
+    url: "/blog/category/statistics/"
+  - label: "fintech"
+    url: "/blog/category/fintech/"
+
+# ----- JEKYLL BUILD -----
 markdown: kramdown
+highlighter: rouge
+permalink: /blog/:year/:month/:day/:title/
+
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+  math_engine: mathjax     # Enable LaTeX math rendering
+
+# MathJax support (for equations in posts)
+mathjax: true
+
+# ----- COLLECTIONS -----
+collections:
+  projects:
+    output: true
+    permalink: /projects/:name/
+
+# ----- DEFAULTS -----
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+      comments: false
+  - scope:
+      path: ""
+      type: "projects"
+    values:
+      layout: "project"
+
+# ----- PLUGINS -----
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+  - jekyll-paginate
+
+paginate: 10
+paginate_path: "/blog/page:num/"
+
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor

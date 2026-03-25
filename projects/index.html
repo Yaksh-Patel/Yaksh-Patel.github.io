@@ -1,0 +1,52 @@
+---
+layout: default
+title: Projects
+permalink: /projects/
+---
+
+<div class="page-header">
+  <h1>Projects</h1>
+  <p>Selected work across machine learning, credit risk, and data engineering.</p>
+</div>
+
+{% assign sorted_projects = site.projects | sort: "date" | reverse %}
+
+{% if sorted_projects.size > 0 %}
+<div class="card-list">
+  {% for project in sorted_projects %}
+  <div class="project-card">
+    <div class="project-header">
+      <h3><a href="{{ project.url | relative_url }}">{{ project.title }}</a></h3>
+      <div class="project-links">
+        {% if project.github %}
+        <a href="{{ project.github }}" class="project-link" target="_blank">⌥ GitHub</a>
+        {% endif %}
+        {% if project.demo %}
+        <a href="{{ project.demo }}" class="project-link" target="_blank">🚀 Demo</a>
+        {% endif %}
+        {% if project.paper %}
+        <a href="{{ project.paper }}" class="project-link" target="_blank">📄 Paper</a>
+        {% endif %}
+      </div>
+    </div>
+    {% if project.description %}
+    <p class="project-desc">{{ project.description }}</p>
+    {% endif %}
+    {% if project.tags %}
+    <div class="project-tech">
+      {% for tag in project.tags %}
+      <span class="tag">{{ tag }}</span>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </div>
+  {% endfor %}
+</div>
+
+{% else %}
+<div class="project-card" style="text-align:center;padding:48px;color:var(--text-muted);">
+  <p style="font-size:2rem;margin-bottom:12px;">🔧</p>
+  <p>No projects yet. Add <code>.md</code> files to <code>_projects/</code> to showcase your work.</p>
+  <p style="font-size:.85rem;margin-top:8px;">See <code>_projects/example-project.md</code> for the template.</p>
+</div>
+{% endif %}
