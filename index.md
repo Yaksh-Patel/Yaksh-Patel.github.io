@@ -24,7 +24,7 @@ title: Home
 
   <p>
     <!-- EDIT: Replace this paragraph with your own background / story -->
-    Previously I worked on [X at Company Y]. Before that, I studied [degree] at [university].
+    Previously I worked on credit and fraud risk underwriting models at Goldman Sachs. Before that, I studied Mechanical Engineering and Financial Engineering at IIT Kharagpur.
     I care deeply about model interpretability, rigorous experimentation, and translating
     complex statistical ideas into decisions that non-technical stakeholders can trust.
   </p>

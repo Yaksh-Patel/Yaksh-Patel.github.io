@@ -26,7 +26,7 @@ permalink: /about/
 
   <p>
     <!-- EDIT: Add your background, story, what drives you -->
-    My work involves building end-to-end ML systems: from exploratory data analysis and feature
+    My work involves building end-to-end ML models: from exploratory data analysis and feature
     engineering through to model training, validation, monitoring, and deployment in production
     environments. I care deeply about interpretable models and making data-driven decisions
     robust enough for high-stakes financial applications.
@@ -46,24 +46,24 @@ permalink: /about/
       Each item is a <div class="timeline-item">
     -->
     <div class="timeline-item">
-      <div class="tl-period">2023 – Present</div>
+      <div class="tl-period">Oct '24 – Present</div>
       <div class="tl-title">Senior Data Scientist</div>
-      <div class="tl-org">Company Name · City</div>
-      <div class="tl-desc">Brief description of what you do / did here. Replace with your actual role.</div>
+      <div class="tl-org">PayZen · San Francisco (Remote)</div>
+      <div class="tl-desc">Built Walkaway, Collections and Credit Risk models.</div>
     </div>
 
     <div class="timeline-item">
-      <div class="tl-period">2021 – 2023</div>
-      <div class="tl-title">Data Scientist</div>
-      <div class="tl-org">Previous Company · City</div>
-      <div class="tl-desc">Brief description of your previous role.</div>
+      <div class="tl-period">Jun '22 - Oct '24</div>
+      <div class="tl-title">Associate</div>
+      <div class="tl-org">Goldman Sachs · Bengaluru</div>
+      <div class="tl-desc">Responsible for credit and fraud underwriting models for Apple Card, GM Card and Personal Loans.</div>
     </div>
 
     <div class="timeline-item">
-      <div class="tl-period">2019 – 2021</div>
-      <div class="tl-title">Analyst / Junior Data Scientist</div>
-      <div class="tl-org">First Job · City</div>
-      <div class="tl-desc">How you got started in the field.</div>
+      <div class="tl-period">May '21 – Aug '21</div>
+      <div class="tl-title">Data Science Intern</div>
+      <div class="tl-org">Simpl (One Sigma Tech. Pvt. Ltd.) · Bengaluru (Remote)</div>
+      <div class="tl-desc">Devised rules for fraud detection using HDBSCAN algorithm and detected fraud rings for various merchants.</div>
     </div>
   </div>
 
@@ -71,10 +71,10 @@ permalink: /about/
 
   <div class="timeline">
     <div class="timeline-item">
-      <div class="tl-period">2017 – 2021</div>
-      <div class="tl-title">B.Tech / B.E. in [Your Discipline]</div>
-      <div class="tl-org">University Name · City</div>
-      <div class="tl-desc">CGPA: X.X · Relevant coursework or achievements.</div>
+      <div class="tl-period">2017 – 2022</div>
+      <div class="tl-title">Dual Degree: B.Tech. (Mechanical Engineering) + M.Tech. (Financial Engineering)</div>
+      <div class="tl-org">Indian Institute of Technology Kharagpur · Kharagpur, West Bengal</div>
+      <div class="tl-desc">CGPA: 8.41/10</div>
     </div>
   </div>
 
