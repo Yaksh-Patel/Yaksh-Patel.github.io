@@ -35,6 +35,32 @@ title: Home
   </p>
 </div>
 
+<!-- ===== ML/DS STUDY GUIDE CALLOUT ===== -->
+<div class="guide-callout">
+  <div class="guide-callout-inner">
+    <div class="guide-callout-text">
+      <div class="guide-callout-label">📖 Open Resource</div>
+      <h3 class="guide-callout-title">ML/DS Master Study Guide</h3>
+      <p class="guide-callout-desc">
+        51 topics from linear algebra to LLMs — with SVG animations, runnable Python code,
+        and ideal interview answers. Built for interview prep and everyday revision.
+        Covers credit risk, MLOps, transformers, XGBoost, backprop and more.
+      </p>
+      <div class="guide-callout-tags">
+        <span class="tag">Machine Learning</span>
+        <span class="tag">Deep Learning</span>
+        <span class="tag">NLP</span>
+        <span class="tag">Credit Risk</span>
+        <span class="tag">MLOps</span>
+        <span class="tag">Interview Prep</span>
+      </div>
+    </div>
+    <a href="https://yaksh-patel.github.io/ml-guide" target="_blank" rel="noopener" class="guide-callout-btn">
+      Open Guide ↗
+    </a>
+  </div>
+</div>
+
 <!-- ===== RECENT POSTS ===== -->
 {% if site.posts.size > 0 %}
 <div class="section-header">
