@@ -14,24 +14,15 @@ title: Home
   <div class="hero-photo-placeholder">🧑‍💻</div>
 
   <h1>Yaksh Patel</h1>
-  <p class="hero-subtitle">Senior Data Scientist · Credit Risk · Fintech · Machine Learning</p>
+  <p class="hero-subtitle">Senior Data Scientist · Machine Learning · Credit Risk · Fintech</p>
 
   <p>
-    I build machine learning systems that power financial decisions at scale.
-    My work sits at the intersection of credit risk modelling, feature engineering,
-    and deploying models that actually work in production.
+    Passionate about building and deploying machine learning systems across domains. I’ve worked on credit, fraud, and risk modeling in fintech, and am particularly interested in deep learning and real-world ML applications.
   </p>
 
   <p>
     <!-- EDIT: Replace this paragraph with your own background / story -->
-    Previously I worked on credit and fraud risk underwriting models at Goldman Sachs. Before that, I studied Mechanical Engineering and Financial Engineering at IIT Kharagpur.
-    I care deeply about model interpretability, rigorous experimentation, and translating
-    complex statistical ideas into decisions that non-technical stakeholders can trust.
-  </p>
-
-  <p>
-    This site documents my projects, writing, and technical notes.
-    All opinions are my own.
+    PayZen · Ex-Goldman Sachs · IIT Kharagpur
   </p>
 </div>
 

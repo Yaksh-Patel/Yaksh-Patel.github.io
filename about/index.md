@@ -20,50 +20,62 @@ permalink: /about/
   <h2>Who am I</h2>
 
   <p>
-    My name is <strong>Yaksh Patel</strong>, and I am a Senior Data Scientist specialising in
-    credit risk modelling and machine learning for fintech. <!-- Edit this intro paragraph -->
+    I am <strong>Yaksh Patel</strong>, a Senior Data Scientist working on building scalable machine learning systems across high impact problem areas.
   </p>
 
   <p>
-    <!-- EDIT: Add your background, story, what drives you -->
-    My work involves building end-to-end ML models: from exploratory data analysis and feature
-    engineering through to model training, validation, monitoring, and deployment in production
-    environments. I care deeply about interpretable models and making data-driven decisions
-    robust enough for high-stakes financial applications.
+    My experience includes credit, fraud, and risk modeling in fintech, where I have developed end to end machine learning solutions from exploratory analysis and feature engineering to deployment and monitoring in production. I have worked with tree based models, graph based methods, and large scale tabular data to solve problems that directly influence business decisions.
   </p>
 
   <p>
-    <!-- EDIT: Add personal philosophy, motivations -->
-    I believe in writing about what I learn. This site is a record of technical explorations,
-    project write-ups, and ideas I want to think through carefully.
+    Beyond specific domains, my primary interest is in machine learning and deep learning. I enjoy designing robust systems, improving model generalization, and turning data into decisions that can be trusted in real world settings. I care about interpretability, disciplined experimentation, and building models that perform reliably outside of controlled environments.
+  </p>
+
+  <p>
+    I use this space to document technical explorations, ideas, and learnings across machine learning, deep learning, and applied data science.
   </p>
 
   <h2>Experience</h2>
 
   <div class="timeline">
-    <!--
-      EDIT: Add/remove/change timeline items below.
-      Each item is a <div class="timeline-item">
-    -->
     <div class="timeline-item">
       <div class="tl-period">Oct '24 – Present</div>
       <div class="tl-title">Senior Data Scientist</div>
-      <div class="tl-org">PayZen · San Francisco (Remote)</div>
-      <div class="tl-desc">Built Walkaway, Collections and Credit Risk models.</div>
+      <div class="tl-org"><strong>PayZen</strong> · San Francisco (Remote)</div>
+      <div class="tl-desc">
+        <ul>
+          <li>Building and deploying machine learning systems for credit decisioning and collections</li>
+          <li>Developed end to end models improving operational efficiency and portfolio performance</li>
+          <li>Automated portfolio monitoring and reporting pipelines for risk tracking</li>
+        </ul>
+      </div>
     </div>
 
     <div class="timeline-item">
-      <div class="tl-period">Jun '22 - Oct '24</div>
+      <div class="tl-period">Jun '22 – Oct '24</div>
       <div class="tl-title">Associate</div>
-      <div class="tl-org">Goldman Sachs · Bengaluru</div>
-      <div class="tl-desc">Responsible for credit and fraud underwriting models for Apple Card, GM Card and Personal Loans.</div>
+      <div class="tl-org"><strong>Goldman Sachs</strong> · Bengaluru</div>
+      <div class="tl-desc">
+        <ul>
+          <li>Worked on credit and fraud decision systems for Apple Card, GM Card, and Personal Loans</li>
+          <li>Built fraud and credit risk models with measurable business impact</li>
+          <li>Developed graph based approaches for fraud ring detection and improved underwriting strategies</li>
+          <li>Contributed to model monitoring, validation, and use of alternative data sources</li>
+        </ul>
+      </div>
     </div>
 
     <div class="timeline-item">
       <div class="tl-period">May '21 – Aug '21</div>
       <div class="tl-title">Data Science Intern</div>
-      <div class="tl-org">Simpl (One Sigma Tech. Pvt. Ltd.) · Bengaluru (Remote)</div>
-      <div class="tl-desc">Devised rules for fraud detection using HDBSCAN algorithm and detected fraud rings for various merchants.</div>
+      <div class="tl-org"><strong>Simpl (One Sigma Tech. Pvt. Ltd.)</strong> · Bengaluru (Remote)</div>
+      <div class="tl-desc">
+        <ul>
+          <li>Built fraud detection systems using clustering and graph based techniques</li>
+          <li>Identified fraud patterns and improved detection rates across merchants</li>
+          <li>Contributed to onboarding risk policies and scoring systems</li>
+        </ul>
+      </div>
     </div>
   </div>
 
@@ -80,58 +92,57 @@ permalink: /about/
 
   <h2>Technical Skills</h2>
 
-  <!--
-    EDIT: Adjust skill names and proficiency levels (0-100 for the width).
-    Add or remove .skill-box entries as needed.
-  -->
   <div class="skills-grid">
     <div class="skill-box">
       <div class="skill-name">Python</div>
       <div class="skill-bar"><div class="skill-fill" style="width:95%"></div></div>
     </div>
+
     <div class="skill-box">
       <div class="skill-name">SQL</div>
-      <div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div>
+      <div class="skill-bar"><div class="skill-fill" style="width:95%"></div></div>
     </div>
+
     <div class="skill-box">
       <div class="skill-name">Machine Learning</div>
-      <div class="skill-bar"><div class="skill-fill" style="width:88%"></div></div>
+      <div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div>
     </div>
-    <div class="skill-box">
-      <div class="skill-name">Credit Risk Modelling</div>
-      <div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div>
-    </div>
+
     <div class="skill-box">
       <div class="skill-name">Feature Engineering</div>
       <div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div>
     </div>
+
     <div class="skill-box">
-      <div class="skill-name">Statistics</div>
-      <div class="skill-bar"><div class="skill-fill" style="width:82%"></div></div>
+      <div class="skill-name">Statistics & Probability</div>
+      <div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div>
     </div>
+
     <div class="skill-box">
       <div class="skill-name">XGBoost / LightGBM</div>
-      <div class="skill-bar"><div class="skill-fill" style="width:88%"></div></div>
+      <div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div>
     </div>
+
     <div class="skill-box">
-      <div class="skill-name">MLflow / Experiment Tracking</div>
+      <div class="skill-name">PySpark & Big Data</div>
       <div class="skill-bar"><div class="skill-fill" style="width:75%"></div></div>
     </div>
+
     <div class="skill-box">
-      <div class="skill-name">PySpark / Big Data</div>
-      <div class="skill-bar"><div class="skill-fill" style="width:70%"></div></div>
+      <div class="skill-name">Data Visualization (Matplotlib / Seaborn)</div>
+      <div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div>
     </div>
+
     <div class="skill-box">
-      <div class="skill-name">Docker / Cloud (AWS/GCP)</div>
-      <div class="skill-bar"><div class="skill-fill" style="width:65%"></div></div>
+      <div class="skill-name">Deep Learning (PyTorch / TensorFlow)</div>
+      <div class="skill-bar"><div class="skill-fill" style="width:60%"></div></div>
     </div>
   </div>
 
   <h2>Contact</h2>
 
   <p>
-    If you have questions about my posts or projects, feel free to open an issue on the relevant
-    GitHub repository. For private enquiries, reach me at
+    For any enquiries, you can reach me at
     <a href="mailto:{{ site.author.email }}">{{ site.author.email }}</a>.
   </p>
 </article>
