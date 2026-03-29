@@ -13,8 +13,8 @@ description: >
 author:
   name: "Yaksh Patel"
   bio: >
-    Senior Data Scientist
-    Passionate about turning messy data into reliable production models.
+    <strong>Senior Data Scientist</strong><br>
+    <em>Passionate about turning messy data into reliable production models.</em>
   location: "Bengaluru, Karnataka, India"
   avatar: "/assets/images/avatar.jpg"   # Replace with your photo
   email: "yaksh.10.patel@gmail.com"               # Replace with your email
