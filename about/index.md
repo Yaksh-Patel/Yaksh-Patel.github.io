@@ -58,7 +58,6 @@ permalink: /about/
       <div class="tl-desc">
         <ul>
           <li>Worked on credit and fraud decision systems for Apple Card, GM Card, and Personal Loans</li>
-          <li>Built fraud and credit risk models with measurable business impact</li>
           <li>Developed graph based approaches for fraud ring detection and improved underwriting strategies</li>
           <li>Contributed to model monitoring, validation, and use of alternative data sources</li>
         </ul>
@@ -72,8 +71,7 @@ permalink: /about/
       <div class="tl-desc">
         <ul>
           <li>Built fraud detection systems using clustering and graph based techniques</li>
-          <li>Identified fraud patterns and improved detection rates across merchants</li>
-          <li>Contributed to onboarding risk policies and scoring systems</li>
+          <li>Improved fraud detection and contributed to onboarding risk policies and scoring systems</li>
         </ul>
       </div>
     </div>
