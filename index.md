@@ -33,9 +33,7 @@ title: Home
       <div class="guide-callout-label">📖 Open Resource</div>
       <h3 class="guide-callout-title">ML/DS Master Study Guide</h3>
       <p class="guide-callout-desc">
-        51 topics from linear algebra to LLMs — with SVG animations, runnable Python code,
-        and ideal interview answers. Built for interview prep and everyday revision.
-        Covers credit risk, MLOps, transformers, XGBoost, backprop and more.
+        54 topics like linear algebra, classical ML, NNs, DL Architectures, LLM Era, etc. Built for interview prep and everyday revision.
       </p>
       <div class="guide-callout-tags">
         <span class="tag">Machine Learning</span>
