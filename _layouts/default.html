@@ -3,17 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>{% if page.title %}{{ page.title }} · {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
-  <meta name="description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | truncate: 160 }}{% else %}{{ site.description }}{% endif %}" />
-
-  <!-- Open Graph -->
-  <meta property="og:title" content="{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}" />
-  <meta property="og:description" content="{{ site.description }}" />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="{{ site.url }}{{ page.url }}" />
+  {% seo %}
 
   <!-- Favicon -->
-  <link rel="icon" type="image/png" href="{{ '/assets/images/favicon.png' | relative_url }}" />
+  <link rel="icon" type="image/svg+xml" href="{{ '/assets/images/favicon.svg' | relative_url }}" />
+  <meta name="theme-color" content="#2563a8" />
 
   <!-- Stylesheet -->
   <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}" />
@@ -111,19 +105,19 @@
 
         <div class="sidebar-links">
           {% if site.author.github %}
-          <a href="https://github.com/{{ site.author.github }}" target="_blank">⌥ GitHub</a>
+          <a href="https://github.com/{{ site.author.github }}" target="_blank" rel="noopener">⌥ GitHub</a>
           {% endif %}
           {% if site.author.linkedin %}
-          <a href="https://linkedin.com/in/{{ site.author.linkedin }}" target="_blank">in LinkedIn</a>
+          <a href="https://linkedin.com/in/{{ site.author.linkedin }}" target="_blank" rel="noopener">in LinkedIn</a>
           {% endif %}
           {% if site.author.email %}
           <a href="mailto:{{ site.author.email }}">✉ Email</a>
           {% endif %}
           {% if site.author.twitter %}
-          <a href="https://twitter.com/{{ site.author.twitter }}" target="_blank">𝕏 Twitter</a>
+          <a href="https://twitter.com/{{ site.author.twitter }}" target="_blank" rel="noopener">𝕏 Twitter</a>
           {% endif %}
           {% if site.author.kaggle %}
-          <a href="https://kaggle.com/{{ site.author.kaggle }}" target="_blank">🏆 Kaggle</a>
+          <a href="https://kaggle.com/{{ site.author.kaggle }}" target="_blank" rel="noopener">🏆 Kaggle</a>
           {% endif %}
         </div>
       </div>
@@ -194,10 +188,10 @@
   <!-- ===== FOOTER ===== -->
   <footer class="site-footer">
     <div class="footer-inner">
-      <span>© {{ "now" | date: "%Y" }} {{ site.author.name }} · Powered by <a href="https://jekyllrb.com" target="_blank">Jekyll</a></span>
+      <span>© {{ "now" | date: "%Y" }} {{ site.author.name }} · Powered by <a href="https://jekyllrb.com" target="_blank" rel="noopener">Jekyll</a></span>
       <span>
-        {% if site.author.github %}<a href="https://github.com/{{ site.author.github }}" target="_blank">GitHub</a> · {% endif %}
-        {% if site.author.linkedin %}<a href="https://linkedin.com/in/{{ site.author.linkedin }}" target="_blank">LinkedIn</a> · {% endif %}
+        {% if site.author.github %}<a href="https://github.com/{{ site.author.github }}" target="_blank" rel="noopener">GitHub</a> · {% endif %}
+        {% if site.author.linkedin %}<a href="https://linkedin.com/in/{{ site.author.linkedin }}" target="_blank" rel="noopener">LinkedIn</a> · {% endif %}
         {% if site.author.email %}<a href="mailto:{{ site.author.email }}">Email</a>{% endif %}
       </span>
     </div>

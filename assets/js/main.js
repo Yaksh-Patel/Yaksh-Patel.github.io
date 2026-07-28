@@ -70,6 +70,23 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  /* ---- Blog search results ---- */
+  const params = new URLSearchParams(window.location.search);
+  const query = (params.get('search') || '').trim().toLowerCase();
+  if (query && window.location.pathname.replace(/\/$/, '') === '/blog') {
+    const cards = Array.from(document.querySelectorAll('.post-card')).filter(card => card.id !== 'blogSearchEmpty');
+    const empty = document.getElementById('blogSearchEmpty');
+    let visible = 0;
+
+    cards.forEach(card => {
+      const matches = card.textContent.toLowerCase().includes(query);
+      card.style.display = matches ? '' : 'none';
+      if (matches) visible += 1;
+    });
+
+    if (empty) empty.style.display = visible === 0 ? 'block' : 'none';
+  }
+
   /* ---- Skill bars animate on scroll ---- */
   const fills = document.querySelectorAll('.skill-fill');
   if (fills.length > 0 && 'IntersectionObserver' in window) {
@@ -96,7 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const href = link.getAttribute('href').replace(/\/$/, '') || '/';
     if (href !== '/' && currentPath.startsWith(href)) {
       link.classList.add('active');
-    } else if (href === '/' && currentPath === '') {
+    } else if (href === '/' && currentPath === '/') {
       link.classList.add('active');
     }
   });

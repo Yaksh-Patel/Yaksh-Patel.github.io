@@ -12,13 +12,13 @@ layout: default
     {% if page.github or page.demo or page.paper %}
     <div class="project-links" style="margin-top:12px;">
       {% if page.github %}
-      <a href="{{ page.github }}" target="_blank" class="project-link">⌥ GitHub</a>
+      <a href="{{ page.github }}" target="_blank" rel="noopener" class="project-link">⌥ GitHub</a>
       {% endif %}
       {% if page.demo %}
-      <a href="{{ page.demo }}" target="_blank" class="project-link">🚀 Demo</a>
+      <a href="{{ page.demo }}" target="_blank" rel="noopener" class="project-link">🚀 Demo</a>
       {% endif %}
       {% if page.paper %}
-      <a href="{{ page.paper }}" target="_blank" class="project-link">📄 Paper</a>
+      <a href="{{ page.paper }}" target="_blank" rel="noopener" class="project-link">📄 Paper</a>
       {% endif %}
     </div>
     {% endif %}

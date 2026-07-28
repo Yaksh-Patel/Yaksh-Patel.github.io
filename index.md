@@ -107,10 +107,10 @@ title: Home
       <h3><a href="{{ project.url | relative_url }}">{{ project.title }}</a></h3>
       <div class="project-links">
         {% if project.github %}
-        <a href="{{ project.github }}" class="project-link" target="_blank">GitHub</a>
+        <a href="{{ project.github }}" class="project-link" target="_blank" rel="noopener">GitHub</a>
         {% endif %}
         {% if project.demo %}
-        <a href="{{ project.demo }}" class="project-link" target="_blank">Demo</a>
+        <a href="{{ project.demo }}" class="project-link" target="_blank" rel="noopener">Demo</a>
         {% endif %}
       </div>
     </div>

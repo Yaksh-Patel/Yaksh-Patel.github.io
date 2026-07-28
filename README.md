@@ -83,7 +83,8 @@ bundle exec jekyll serve --livereload
 │   │   └── main.js              ← Theme toggle, mobile nav, search
 │   └── images/
 │       ├── avatar.jpg           ← Sidebar profile photo (replace this)
-│       └── avatar-large.jpg     ← Larger photo for About/Home (replace this)
+│       ├── avatar-large.jpg     ← Larger photo for About/Home (replace this)
+│       └── favicon.svg          ← Browser tab icon
 │
 ├── index.md                     ← Home page content
 ├── about/index.md               ← About page content
@@ -149,7 +150,7 @@ After editing `_config.yml`, **restart `jekyll serve`** — config changes don't
 3. In `about/index.md`, uncomment the `<img>` line and remove the comment.
 
 **Favicon**:
-1. Add a 32×32 or 64×64 PNG to `assets/images/favicon.png`
+1. Edit `assets/images/favicon.svg` if you want to adjust the abstract node mark.
 2. It's already referenced in `_layouts/default.html` — nothing else needed.
 
 ---
@@ -301,7 +302,7 @@ Add a `.publication-item` block for each paper:
 </div>
 ```
 
-If you have no publications, remove `Publications` from the `nav_pages` list in `_config.yml`.
+The page is not included in the default navigation. Add it to `nav_pages` in `_config.yml` when you have publications to show.
 
 ---
 
@@ -319,8 +320,6 @@ nav_pages:
     url: "/projects/"
   - title: "Blog"
     url: "/blog/"
-  - title: "Publications"         # Remove this entry to hide the link
-    url: "/publications/"
 ```
 
 To **add a new nav item**, create the page file first (see [Adding New Pages](#adding-new-pages)), then add an entry here.
@@ -343,9 +342,7 @@ sidebar_categories:
 ```yaml
 # _config.yml
 stats:
-  posts: 12               # Override auto-count, or leave blank for auto
-  projects: 5             # Override auto-count, or leave blank for auto
-  years_experience: 4     # Always set manually
+  years_experience: 4     # Posts/projects auto-count from collections
 ```
 
 ---

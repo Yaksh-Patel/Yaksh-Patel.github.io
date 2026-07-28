@@ -39,14 +39,10 @@ nav_pages:
     url: "/projects/"
   - title: "Blog"
     url: "/blog/"
-  - title: "Publications"
-    url: "/publications/"
 
 # ----- SIDEBAR STATS (shown on homepage) -----
-# Update these manually whenever your counts change
+# Posts and projects auto-count from collections; keep only manual fields here.
 stats:
-  posts: 0
-  projects: 0
   years_experience: 3.5
 
 # ----- SIDEBAR CATEGORIES -----
