@@ -1,120 +1,132 @@
 /* ============================================================
-   main.js — Theme toggle, mobile nav, sidebar search
+   main.js — theme, nav, reveal-on-scroll, blog search
    ============================================================ */
 
-/* ---- Theme Toggle ---- */
-const THEME_KEY = 'yaksh-theme';
+(function () {
+  'use strict';
 
-function applyTheme(theme) {
-  document.documentElement.setAttribute('data-theme', theme);
-  const icon  = document.getElementById('themeIcon');
-  const label = document.getElementById('themeLabel');
-  if (!icon || !label) return;
-  if (theme === 'dark') {
-    icon.textContent  = '☀️';
-    label.textContent = 'Light';
-  } else {
-    icon.textContent  = '🌙';
-    label.textContent = 'Dark';
+  var THEME_KEY = 'yaksh-theme';
+  var root = document.documentElement;
+
+  /* ---- Theme ----------------------------------------------------------
+     The initial theme is set by an inline script in <head> to avoid a
+     flash of the wrong palette. This only handles the toggle and keeps
+     the icon in sync. */
+  function syncIcon() {
+    var use = document.querySelector('#themeIcon use');
+    if (!use) return;
+    var dark = root.getAttribute('data-theme') === 'dark';
+    use.setAttribute('href', dark ? '#i-sun' : '#i-moon');
+    var btn = document.getElementById('themeToggle');
+    if (btn) btn.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode');
   }
-}
 
-function initTheme() {
-  const saved  = localStorage.getItem(THEME_KEY);
-  const system = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-  applyTheme(saved || system);
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  initTheme();
-
-  /* Theme toggle button */
-  const btn = document.getElementById('themeToggle');
-  if (btn) {
-    btn.addEventListener('click', () => {
-      const current = document.documentElement.getAttribute('data-theme');
-      const next    = current === 'dark' ? 'light' : 'dark';
-      applyTheme(next);
-      localStorage.setItem(THEME_KEY, next);
+  function initTheme() {
+    syncIcon();
+    var btn = document.getElementById('themeToggle');
+    if (!btn) return;
+    btn.addEventListener('click', function () {
+      var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      try { localStorage.setItem(THEME_KEY, next); } catch (e) {}
+      syncIcon();
     });
   }
 
-  /* ---- Mobile hamburger ---- */
-  const hamburger  = document.getElementById('hamburger');
-  const mobileNav  = document.getElementById('mobileNav');
-  if (hamburger && mobileNav) {
-    hamburger.addEventListener('click', () => {
-      mobileNav.classList.toggle('open');
-      const isOpen = mobileNav.classList.contains('open');
-      hamburger.setAttribute('aria-expanded', isOpen);
+  /* ---- Mobile nav ---------------------------------------------------- */
+  function initNav() {
+    var burger = document.getElementById('hamburger');
+    var nav = document.getElementById('mobileNav');
+    if (!burger || !nav) return;
+
+    burger.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var open = nav.classList.toggle('open');
+      burger.setAttribute('aria-expanded', String(open));
     });
 
-    /* Close on outside click */
-    document.addEventListener('click', (e) => {
-      if (!hamburger.contains(e.target) && !mobileNav.contains(e.target)) {
-        mobileNav.classList.remove('open');
+    document.addEventListener('click', function (e) {
+      if (!burger.contains(e.target) && !nav.contains(e.target)) {
+        nav.classList.remove('open');
+        burger.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') {
+        nav.classList.remove('open');
+        burger.setAttribute('aria-expanded', 'false');
       }
     });
   }
 
-  /* ---- Sidebar search ---- */
-  const searchInput = document.getElementById('sidebarSearch');
-  if (searchInput) {
-    searchInput.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') {
-        const q = searchInput.value.trim();
-        if (q) {
-          window.location.href = `/blog/?search=${encodeURIComponent(q)}`;
-        }
-      }
-    });
+  /* ---- Header hairline appears once scrolled ------------------------- */
+  function initHeader() {
+    var header = document.getElementById('siteHeader');
+    if (!header) return;
+    var onScroll = function () {
+      header.classList.toggle('is-stuck', window.scrollY > 8);
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
   }
 
-  /* ---- Blog search results ---- */
-  const params = new URLSearchParams(window.location.search);
-  const query = (params.get('search') || '').trim().toLowerCase();
-  if (query && window.location.pathname.replace(/\/$/, '') === '/blog') {
-    const cards = Array.from(document.querySelectorAll('.post-card')).filter(card => card.id !== 'blogSearchEmpty');
-    const empty = document.getElementById('blogSearchEmpty');
-    let visible = 0;
+  /* ---- Reveal on scroll --------------------------------------------- */
+  function initReveal() {
+    var items = document.querySelectorAll('.reveal');
+    if (!items.length) return;
 
-    cards.forEach(card => {
-      const matches = card.textContent.toLowerCase().includes(query);
-      card.style.display = matches ? '' : 'none';
-      if (matches) visible += 1;
-    });
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduced || !('IntersectionObserver' in window)) {
+      items.forEach(function (el) { el.classList.add('is-visible'); });
+      return;
+    }
 
-    if (empty) empty.style.display = visible === 0 ? 'block' : 'none';
-  }
-
-  /* ---- Skill bars animate on scroll ---- */
-  const fills = document.querySelectorAll('.skill-fill');
-  if (fills.length > 0 && 'IntersectionObserver' in window) {
-    const obs = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
         if (entry.isIntersecting) {
-          entry.target.style.width = entry.target.getAttribute('data-width') || entry.target.style.width;
+          entry.target.classList.add('is-visible');
           obs.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.3 });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
 
-    fills.forEach(fill => {
-      const w = fill.style.width;
-      fill.setAttribute('data-width', w);
-      fill.style.width = '0';
-      setTimeout(() => obs.observe(fill), 100);
-    });
+    items.forEach(function (el) { obs.observe(el); });
   }
 
-  /* ---- Active nav link highlight ---- */
-  const currentPath = window.location.pathname.replace(/\/$/, '') || '/';
-  document.querySelectorAll('.site-nav a').forEach(link => {
-    const href = link.getAttribute('href').replace(/\/$/, '') || '/';
-    if (href !== '/' && currentPath.startsWith(href)) {
-      link.classList.add('active');
-    } else if (href === '/' && currentPath === '/') {
-      link.classList.add('active');
+  /* ---- Blog search --------------------------------------------------- */
+  function initSearch() {
+    var input = document.getElementById('sidebarSearch');
+    var empty = document.getElementById('blogSearchEmpty');
+    if (!input) return;
+
+    var cards = Array.prototype.slice.call(document.querySelectorAll('.post-card'))
+      .filter(function (c) { return c.id !== 'blogSearchEmpty'; });
+
+    function apply(q) {
+      q = (q || '').trim().toLowerCase();
+      var visible = 0;
+      cards.forEach(function (card) {
+        var match = !q || card.textContent.toLowerCase().indexOf(q) !== -1;
+        card.style.display = match ? '' : 'none';
+        if (match) visible++;
+      });
+      if (empty) empty.style.display = (q && visible === 0) ? 'block' : 'none';
     }
+
+    /* Filter as you type — no page reload, no query-string round trip. */
+    input.addEventListener('input', function () { apply(input.value); });
+
+    var params = new URLSearchParams(window.location.search);
+    var initial = params.get('search');
+    if (initial) { input.value = initial; apply(initial); }
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    initTheme();
+    initNav();
+    initHeader();
+    initReveal();
+    initSearch();
   });
-});
+})();

@@ -1,54 +1,90 @@
 # ============================================================
-#  _config.yml — Site-wide settings for Yaksh Patel's website
-#  Edit this file to change global info shown across the site
+#  _config.yml — Site-wide settings
 # ============================================================
 
 # ----- IDENTITY -----
 title: "Yaksh Patel"
-tagline: "Data Scientist · Credit Risk · Fintech"
+tagline: "ML Engineering · AI Systems · Production ML"
 description: >
-  Personal website of Yaksh Patel — Senior Data Scientist working on
-  machine learning, credit risk modelling, and fintech systems.
+  Yaksh Patel — ML engineer building production machine learning systems:
+  feature pipelines, model serving, monitoring, and the design decisions that
+  keep models reliable under real traffic.
 
 author:
   name: "Yaksh Patel"
+  short_name: "Yaksh"
+  initials: "YP"
+  role: "ML Engineer"
   bio: >
-    <strong>Senior Data Scientist</strong><br>
-    <em>Passionate about turning messy data into reliable production models.</em>
-  location: "Bengaluru, Karnataka, India"
-  avatar: "/assets/images/avatar.jpg"   # Replace with your photo
-  email: "yaksh.10.patel@gmail.com"               # Replace with your email
+    I build machine learning systems that run in production — and stay correct
+    once they get there.
+  location: "Bengaluru, India"
+  avatar: "/assets/images/avatar.jpg"
+  email: "yaksh.10.patel@gmail.com"
   github: "Yaksh-Patel"
-  linkedin: "yvkpatel"               # LinkedIn username only
-  twitter: "TheYakshPatel"                           # Twitter/X handle (leave blank to hide)
-  # kaggle: ""                            # Kaggle username (leave blank to hide)
+  linkedin: "yvkpatel"
+  twitter: "TheYakshPatel"
+
+# One-line positioning used in the hero
+hero:
+  eyebrow: "ML Systems · AI Engineering"
+  headline_lead: "I build machine learning systems"
+  headline_accent: "that survive production."
+  blurb: >
+    Four years of shipping models into high-stakes decision systems — credit,
+    fraud, risk — where silent drift is a business problem, not an academic one.
+    My work sits on the systems side of ML: feature pipelines, training and
+    validation that respect time, serving, monitoring, and the architecture calls
+    that decide whether a model holds up under real traffic.
+  affiliations: "PayZen · ex-Goldman Sachs · IIT Kharagpur"
 
 # ----- URLS -----
-baseurl: ""          # Keep empty for username.github.io sites
+baseurl: ""
 url: "https://yaksh-patel.github.io"
 
 # ----- NAVIGATION -----
-# Pages listed here will appear in the top navbar (in order)
-# Each entry must have a matching .md or index.html file
 nav_pages:
   - title: "Home"
     url: "/"
   - title: "About"
     url: "/about/"
-  - title: "Projects"
+  - title: "Work"
     url: "/projects/"
-  - title: "Blog"
+  - title: "Writing"
     url: "/blog/"
 
-# ----- SIDEBAR STATS (shown on homepage) -----
-# Posts and projects auto-count from collections; keep only manual fields here.
+# ----- HOMEPAGE STATS -----
 stats:
-  years_experience: 3.5
+  years_experience: 4
 
-# ----- SIDEBAR CATEGORIES -----
-# These are content categories shown in the left sidebar
-# Adjust labels and urls to match your content structure
+# ----- HOMEPAGE FOCUS CARDS -----
+focus_areas:
+  - index: "01"
+    title: "Production ML systems"
+    body: >
+      End-to-end ownership: ingestion and feature engineering, training with
+      validation that respects temporal ordering, deployment, then the monitoring
+      that catches drift before a business metric does.
+    tags: [Feature pipelines, Walk-forward validation, MLflow, Drift & PSI monitoring]
+  - index: "02"
+    title: "Decision systems at scale"
+    body: >
+      Models that make consequential calls on real money — credit underwriting,
+      collections strategy, fraud-ring detection — built to be explainable and
+      defensible to the people accountable for the outcome.
+    tags: [Credit & fraud, Graph methods, Gradient boosting, Interpretability]
+  - index: "03"
+    title: "AI engineering"
+    body: >
+      Building with the current generation of models and tooling, and treating
+      them as engineering problems: what the architecture should be, where the
+      failure modes hide, and what still needs a human in the loop.
+    tags: [LLM applications, AI-assisted development, Evaluation, Deep learning]
+
+# ----- BLOG SIDEBAR CATEGORIES -----
 sidebar_categories:
+  - label: "ml-systems"
+    url: "/blog/category/ml-systems/"
   - label: "machine-learning"
     url: "/blog/category/machine-learning/"
   - label: "credit-risk"
@@ -57,8 +93,6 @@ sidebar_categories:
     url: "/blog/category/python/"
   - label: "statistics"
     url: "/blog/category/statistics/"
-  - label: "fintech"
-    url: "/blog/category/fintech/"
 
 # ----- JEKYLL BUILD -----
 sass:
@@ -71,9 +105,8 @@ permalink: /blog/:year/:month/:day/:title/
 kramdown:
   input: GFM
   syntax_highlighter: rouge
-  math_engine: mathjax     # Enable LaTeX math rendering
+  math_engine: mathjax
 
-# MathJax support (for equations in posts)
 mathjax: true
 
 # ----- COLLECTIONS -----
@@ -90,11 +123,13 @@ defaults:
     values:
       layout: "post"
       comments: false
+      narrow: true
   - scope:
       path: ""
       type: "projects"
     values:
       layout: "project"
+      narrow: true
 
 # ----- PLUGINS -----
 plugins:

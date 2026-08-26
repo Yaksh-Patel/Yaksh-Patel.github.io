@@ -1,71 +1,68 @@
 ---
 layout: default
-title: Projects
+title: Work
 permalink: /projects/
 ---
 
 <div class="page-header">
-  <h1>Projects</h1>
-  <p>Selected work across machine learning, credit risk, and data engineering — plus a
-     side shelf of AI-built experiments.</p>
+  <span class="eyebrow">Work</span>
+  <h1>Systems, models, and experiments</h1>
+  <p>Production machine learning and decision systems, plus a side shelf of AI-built
+     experiments where I direct the tools rather than write the code.</p>
 </div>
 
 {% assign all_projects = site.projects | sort: "date" | reverse %}
 {% assign work_projects = all_projects | where_exp: "p", "p.ai_assisted != true" %}
 {% assign lab_projects = all_projects | where_exp: "p", "p.ai_assisted == true" %}
 
-<!-- ===== WORK & RESEARCH ===== -->
 {% if work_projects.size > 0 %}
-<div class="section-header">
-  <h2>Work &amp; Research</h2>
-  <span class="section-line"></span>
+<div class="sec-head reveal">
+  <span class="sec-index">01</span>
+  <h2>Applied ML</h2>
+  <span class="sec-line"></span>
 </div>
-
-<div class="card-list">
+<div class="card-list" style="margin-bottom:56px;">
   {% for project in work_projects %}
-    {% include project-card.html project=project %}
+    <div class="reveal">{% include project-card.html project=project %}</div>
   {% endfor %}
 </div>
 {% endif %}
 
-<!-- ===== AI LAB ===== -->
 {% if lab_projects.size > 0 %}
-<div class="section-header">
+<div class="sec-head reveal">
+  <span class="sec-index">02</span>
   <h2>AI Lab</h2>
-  <span class="section-line"></span>
+  <span class="sec-line"></span>
 </div>
 
-<div class="lab-note">
+<div class="lab-note reveal">
   <p class="lab-note-lead">
     Pass-time pet projects, built to find the edges of what AI coding tools can do.
   </p>
   <p>
-    <strong>I didn't write this code — AI tools did, and I directed them.</strong> I brought
-    the idea, the product decisions, the architecture calls, and the review loop: deciding
-    what to build, catching where the model got it wrong, and pushing back until the result
-    was something I'd actually keep installed. The typing was the model's; the judgement
-    was mine.
+    <strong>I didn't write this code — AI tools did, and I directed them.</strong> I brought the
+    idea, the product decisions, the architecture calls, and the review loop: deciding what to
+    build, catching where the model got it wrong, and pushing back until the result was something
+    I'd actually keep installed. The typing was the model's; the judgement was mine.
   </p>
   <p>
-    I ship them because the interesting artifact isn't the app — it's what the process
-    reveals about where AI-assisted development genuinely works today, and where it still
-    needs a human holding the wheel. My read so far: these tools produce competent code
-    fast, and nearly all the remaining leverage is in knowing which competent-looking thing
-    is going to fail in the real world. That gap is the thing worth understanding before it
-    reshapes how software gets built.
+    I ship them because the interesting artifact isn't the app — it's what the process reveals
+    about where AI-assisted development genuinely works today, and where it still needs a human
+    holding the wheel. My read so far: these tools produce competent code fast, and nearly all
+    the remaining leverage is in knowing which competent-looking thing is going to fail in the
+    real world. That gap is worth understanding before it reshapes how software gets built.
   </p>
 </div>
 
 <div class="card-list">
   {% for project in lab_projects %}
-    {% include project-card.html project=project %}
+    <div class="reveal">{% include project-card.html project=project %}</div>
   {% endfor %}
 </div>
 {% endif %}
 
 {% if all_projects.size == 0 %}
 <div class="project-card" style="text-align:center;padding:48px;color:var(--text-muted);">
-  <p style="font-size:2rem;margin-bottom:12px;">🔧</p>
-  <p>No projects yet. Add <code>.md</code> files to <code>_projects/</code> to showcase your work.</p>
+  <p>No projects yet. Add <code>.md</code> files to <code>_projects/</code>.</p>
 </div>
 {% endif %}

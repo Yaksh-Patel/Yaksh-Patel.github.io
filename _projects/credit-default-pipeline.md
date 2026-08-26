@@ -3,16 +3,16 @@ layout: project
 title: "Credit Default Prediction Pipeline"
 date: 2024-01-01
 description: "End-to-end machine learning pipeline for predicting credit default probability using gradient boosting with feature engineering on bureau data."
-github: "https://github.com/Yaksh-Patel/credit-default"
+github: ""   # repo is not public
 demo: ""
 paper: ""
 status: "Completed"
+platform: "Python · XGBoost · Optuna · MLflow"
+role: "End to end: pipeline, modelling, validation, deployment"
 tags: [Python, XGBoost, Credit Risk, Feature Engineering, MLflow]
 ---
 
 ## Overview
-
-<!-- EDIT: Replace with your actual project description -->
 
 This project builds a production-ready binary classification pipeline for predicting the probability of credit default within the next 12 months.
 
@@ -42,7 +42,3 @@ Given bureau data and application features for a loan applicant, predict the pro
 - Temporal leakage is the #1 enemy in credit risk models
 - WoE encoding significantly improved model stability
 - Monotonicity constraints improved trust with the business
-
-## Code
-
-Full code available on [GitHub](https://github.com/Yaksh-Patel/credit-default).

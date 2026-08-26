@@ -1,0 +1,16 @@
+{%- comment -%} Shared social button row. Pass class="" to restyle. {%- endcomment -%}
+{% if site.author.github %}
+<a class="btn" href="https://github.com/{{ site.author.github }}" target="_blank" rel="noopener">
+  <svg aria-hidden="true"><use href="#i-github"/></svg> GitHub
+</a>
+{% endif %}
+{% if site.author.linkedin %}
+<a class="btn" href="https://linkedin.com/in/{{ site.author.linkedin }}" target="_blank" rel="noopener">
+  <svg aria-hidden="true"><use href="#i-linkedin"/></svg> LinkedIn
+</a>
+{% endif %}
+{% if site.author.email %}
+<a class="btn" href="mailto:{{ site.author.email }}">
+  <svg aria-hidden="true"><use href="#i-mail"/></svg> Email
+</a>
+{% endif %}

@@ -1,0 +1,17 @@
+{% assign post = include.post %}
+<article class="post-card">
+  <div class="post-meta">
+    <span>{{ post.date | date: "%b %d, %Y" }}</span>
+    {% if post.categories.first %}<span class="post-category">{{ post.categories.first }}</span>{% endif %}
+    {% if post.read_time %}<span>{{ post.read_time }} min</span>{% endif %}
+  </div>
+  <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
+  {% if post.excerpt %}
+  <p class="post-excerpt">{{ post.excerpt | strip_html | truncate: 170 }}</p>
+  {% endif %}
+  {% if post.tags.size > 0 %}
+  <div class="post-tags">
+    {% for tag in post.tags limit:4 %}<span class="tag">{{ tag }}</span>{% endfor %}
+  </div>
+  {% endif %}
+</article>

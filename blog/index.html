@@ -1,77 +1,61 @@
 ---
 layout: default
-title: Blog
+title: Writing
 permalink: /blog/
 ---
 
 <div class="page-header">
-  <h1>Blog</h1>
-  <p>Technical notes, explorations, and write-ups on machine learning, statistics, and fintech.</p>
+  <span class="eyebrow">Writing</span>
+  <h1>Notes on ML systems</h1>
+  <p>Technical write-ups on machine learning engineering, modelling, and the parts of
+     production systems that only show up once real traffic hits them.</p>
 </div>
 
 {% if site.posts.size > 0 %}
-<div id="blogSearchEmpty" class="post-card" style="display:none;text-align:center;color:var(--text-muted);padding:32px;margin-bottom:24px;">
+<div class="blog-toolbar">
+  <label class="search-bar">
+    <svg aria-hidden="true"><use href="#i-search"/></svg>
+    <input type="search" id="sidebarSearch" placeholder="Search posts…" aria-label="Search posts" />
+  </label>
+  {% assign all_tags = site.posts | map: "tags" | join: "," | split: "," | uniq | sort %}
+  {% if all_tags.size > 0 %}
+  <div class="tag-cloud">
+    {% for tag in all_tags limit:10 %}<span class="tag">{{ tag }}</span>{% endfor %}
+  </div>
+  {% endif %}
+</div>
+
+<div id="blogSearchEmpty" class="post-card" style="display:none;text-align:center;color:var(--text-muted);padding:32px;margin-bottom:20px;">
   No posts match that search.
 </div>
 
 <div class="card-list">
-  {% for post in paginator.posts %}
-  <article class="post-card">
-    <div class="post-meta">
-      <span class="post-date">{{ post.date | date: "%Y-%m-%d" }}</span>
-      {% if post.categories.first %}
-      <span class="post-category">{{ post.categories.first }}</span>
-      {% endif %}
-      {% if post.read_time %}
-      <span style="font-size:.78rem;color:var(--text-light);">⏱ {{ post.read_time }} min</span>
-      {% endif %}
-    </div>
-    <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
-    {% if post.excerpt %}
-    <p class="post-excerpt">{{ post.excerpt | strip_html | truncate: 200 }}</p>
-    {% endif %}
-    {% if post.tags.size > 0 %}
-    <div class="post-tags">
-      {% for tag in post.tags limit:5 %}
-      <span class="tag">{{ tag }}</span>
-      {% endfor %}
-    </div>
-    {% endif %}
-  </article>
+  {% assign posts = paginator.posts | default: site.posts %}
+  {% for post in posts %}
+    {% include post-card.html post=post %}
   {% endfor %}
 </div>
 
-<!-- Pagination -->
 {% if paginator.total_pages > 1 %}
 <div class="pagination">
   {% if paginator.previous_page %}
   <a href="{{ paginator.previous_page_path | relative_url }}">← Newer</a>
-  {% else %}
-  <span class="disabled">← Newer</span>
-  {% endif %}
+  {% else %}<span class="disabled">← Newer</span>{% endif %}
 
-  {% for page in (1..paginator.total_pages) %}
-  {% if page == paginator.page %}
-  <span class="current">{{ page }}</span>
-  {% elsif page == 1 %}
-  <a href="{{ '/blog/' | relative_url }}">{{ page }}</a>
-  {% else %}
-  <a href="{{ site.paginate_path | relative_url | replace: ':num', page }}">{{ page }}</a>
-  {% endif %}
+  {% for p in (1..paginator.total_pages) %}
+    {% if p == paginator.page %}<span class="current">{{ p }}</span>
+    {% elsif p == 1 %}<a href="{{ '/blog/' | relative_url }}">{{ p }}</a>
+    {% else %}<a href="{{ site.paginate_path | relative_url | replace: ':num', p }}">{{ p }}</a>{% endif %}
   {% endfor %}
 
   {% if paginator.next_page %}
   <a href="{{ paginator.next_page_path | relative_url }}">Older →</a>
-  {% else %}
-  <span class="disabled">Older →</span>
-  {% endif %}
+  {% else %}<span class="disabled">Older →</span>{% endif %}
 </div>
 {% endif %}
 
 {% else %}
 <div class="post-card" style="text-align:center;padding:48px;color:var(--text-muted);">
-  <p style="font-size:2rem;margin-bottom:12px;">✍️</p>
-  <p>No posts yet. Add <code>.md</code> files to <code>_posts/</code> to start writing.</p>
-  <p style="font-size:.85rem;margin-top:8px;">File naming: <code>YYYY-MM-DD-title-here.md</code></p>
+  <p>No posts yet. Add <code>.md</code> files to <code>_posts/</code> named <code>YYYY-MM-DD-title.md</code>.</p>
 </div>
 {% endif %}

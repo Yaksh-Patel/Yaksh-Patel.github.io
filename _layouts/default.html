@@ -1,66 +1,75 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   {% seo %}
 
-  <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="{{ '/assets/images/favicon.svg' | relative_url }}" />
-  <meta name="theme-color" content="#2563a8" />
+  <meta name="theme-color" content="#00786a" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#0a0e10" media="(prefers-color-scheme: dark)" />
 
-  <!-- Stylesheet -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}" />
 
-  <!-- MathJax (for LaTeX equations in posts) -->
+  {%- comment -%}
+    Set the theme before first paint. Without this the page renders light and
+    then snaps to dark, which is worse than no dark mode at all.
+  {%- endcomment -%}
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem('yaksh-theme');
+        var dark = saved ? saved === 'dark'
+                         : window.matchMedia('(prefers-color-scheme: dark)').matches;
+        document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+
   {% if site.mathjax %}
   <script>
-    MathJax = {
-      tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
-      svg: { fontCache: 'global' }
-    };
+    MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] }, svg: { fontCache: 'global' } };
   </script>
   <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
   {% endif %}
 </head>
 
 <body>
+{% include icons.html %}
 
-<!-- ===== TOP NAVIGATION ===== -->
-<header class="site-header">
+<header class="site-header" id="siteHeader">
   <div class="nav-inner">
-    <a href="{{ '/' | relative_url }}" class="site-logo">
-      <span class="logo-icon">YP</span>
+    <a href="{{ '/' | relative_url }}" class="brand">
+      <span class="brand-mark">{{ site.author.initials }}</span>
       {{ site.title }}
     </a>
 
-    <!-- Desktop Nav -->
-    <nav>
+    <nav aria-label="Primary">
       <ul class="site-nav">
         {% for item in site.nav_pages %}
         <li>
-          <a href="{{ item.url | relative_url }}"
-             class="{% if page.url == item.url %}active{% endif %}">
-            {{ item.title }}
-          </a>
+          <a href="{{ item.url | relative_url }}"{% if page.url == item.url %} class="active" aria-current="page"{% endif %}>{{ item.title }}</a>
         </li>
         {% endfor %}
       </ul>
     </nav>
 
     <div class="nav-controls">
-      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
-        <span id="themeIcon">🌙</span> <span id="themeLabel">Dark</span>
+      <button class="icon-btn" id="themeToggle" aria-label="Toggle dark mode" title="Toggle theme">
+        <svg id="themeIcon" aria-hidden="true"><use href="#i-moon"/></svg>
       </button>
-      <button class="hamburger" id="hamburger" aria-label="Open menu">
-        <span></span><span></span><span></span>
+      <button class="icon-btn hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <svg aria-hidden="true"><use href="#i-menu"/></svg>
       </button>
     </div>
   </div>
 </header>
 
-<!-- Mobile Nav Drawer -->
-<nav class="mobile-nav" id="mobileNav">
+<nav class="mobile-nav" id="mobileNav" aria-label="Mobile">
   <ul>
     {% for item in site.nav_pages %}
     <li><a href="{{ item.url | relative_url }}">{{ item.title }}</a></li>
@@ -68,135 +77,26 @@
   </ul>
 </nav>
 
-<!-- ===== MAIN SHELL ===== -->
-<div class="site-wrapper">
-  <div class="content-shell">
-
-    <!-- ===== LEFT SIDEBAR ===== -->
-    <aside class="sidebar">
-      <!-- Author Card -->
-      <div class="sidebar-card">
-        {% if site.author.avatar %}
-        <img src="{{ site.author.avatar | relative_url }}" alt="{{ site.author.name }}" class="sidebar-avatar" />
-        {% else %}
-        <div class="sidebar-avatar-placeholder">{{ site.author.name | slice: 0 }}</div>
-        {% endif %}
-
-        <div class="sidebar-name">{{ site.author.name }}</div>
-        <div class="sidebar-role">{{ site.author.bio }}</div>
-        {% if site.author.location %}
-        <div class="sidebar-location">📍 {{ site.author.location }}</div>
-        {% endif %}
-
-        <div class="sidebar-stats">
-          <div class="stat">
-            <div class="stat-num">{{ site.stats.posts | default: site.posts.size }}</div>
-            <div class="stat-label">Posts</div>
-          </div>
-          <div class="stat">
-            <div class="stat-num">{{ site.stats.projects | default: site.collections.projects.docs.size }}</div>
-            <div class="stat-label">Projects</div>
-          </div>
-          <div class="stat">
-            <div class="stat-num">{{ site.stats.years_experience | default: 3 }}+</div>
-            <div class="stat-label">Years</div>
-          </div>
-        </div>
-
-        <div class="sidebar-links">
-          {% if site.author.github %}
-          <a href="https://github.com/{{ site.author.github }}" target="_blank" rel="noopener">⌥ GitHub</a>
-          {% endif %}
-          {% if site.author.linkedin %}
-          <a href="https://linkedin.com/in/{{ site.author.linkedin }}" target="_blank" rel="noopener">in LinkedIn</a>
-          {% endif %}
-          {% if site.author.email %}
-          <a href="mailto:{{ site.author.email }}">✉ Email</a>
-          {% endif %}
-          {% if site.author.twitter %}
-          <a href="https://twitter.com/{{ site.author.twitter }}" target="_blank" rel="noopener">𝕏 Twitter</a>
-          {% endif %}
-          {% if site.author.kaggle %}
-          <a href="https://kaggle.com/{{ site.author.kaggle }}" target="_blank" rel="noopener">🏆 Kaggle</a>
-          {% endif %}
-        </div>
-      </div>
-
-      <!-- Search -->
-      <div class="sidebar-card">
-        <div class="search-bar">
-          <span class="search-icon">🔍</span>
-          <input type="text" id="sidebarSearch" placeholder="Search posts…" aria-label="Search" />
-        </div>
-      </div>
-
-      <!-- Categories -->
-      {% if site.sidebar_categories.size > 0 %}
-      <div class="sidebar-card">
-        <div class="sidebar-section-title">Categories</div>
-        <ul class="sidebar-category-list">
-          {% for cat in site.sidebar_categories %}
-          <li>
-            <a href="{{ cat.url | relative_url }}">
-              {{ cat.label }}
-              <span class="count">
-                {{ site.posts | where: "categories", cat.label | size }}
-              </span>
-            </a>
-          </li>
-          {% endfor %}
-        </ul>
-      </div>
-      {% endif %}
-
-      <!-- Recent Posts -->
-      {% if site.posts.size > 0 %}
-      <div class="sidebar-card">
-        <div class="sidebar-section-title">Recent Posts</div>
-        <ul class="sidebar-recent-list">
-          {% for post in site.posts limit:5 %}
-          <li>
-            <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
-            <div class="recent-date">{{ post.date | date: "%b %d, %Y" }}</div>
-          </li>
-          {% endfor %}
-        </ul>
-      </div>
-      {% endif %}
-
-      <!-- Tags -->
-      {% assign all_tags = site.posts | map: "tags" | join: "," | split: "," | uniq | sort %}
-      {% if all_tags.size > 0 %}
-      <div class="sidebar-card">
-        <div class="sidebar-section-title">Tags</div>
-        <div class="tag-cloud">
-          {% for tag in all_tags limit:20 %}
-          <a href="{{ '/blog/tag/' | append: tag | slugify | relative_url }}" class="tag">{{ tag }}</a>
-          {% endfor %}
-        </div>
-      </div>
-      {% endif %}
-    </aside>
-
-    <!-- ===== PAGE CONTENT ===== -->
-    <main class="main-content">
+<main id="main">
+  {% if page.full_bleed %}
+    {{ content }}
+  {% else %}
+    <div class="wrap{% if page.narrow %} wrap--read{% endif %}">
       {{ content }}
-    </main>
-
-  </div><!-- /.content-shell -->
-
-  <!-- ===== FOOTER ===== -->
-  <footer class="site-footer">
-    <div class="footer-inner">
-      <span>© {{ "now" | date: "%Y" }} {{ site.author.name }} · Powered by <a href="https://jekyllrb.com" target="_blank" rel="noopener">Jekyll</a></span>
-      <span>
-        {% if site.author.github %}<a href="https://github.com/{{ site.author.github }}" target="_blank" rel="noopener">GitHub</a> · {% endif %}
-        {% if site.author.linkedin %}<a href="https://linkedin.com/in/{{ site.author.linkedin }}" target="_blank" rel="noopener">LinkedIn</a> · {% endif %}
-        {% if site.author.email %}<a href="mailto:{{ site.author.email }}">Email</a>{% endif %}
-      </span>
     </div>
-  </footer>
-</div>
+  {% endif %}
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <span>© {{ "now" | date: "%Y" }} {{ site.author.name }} · {{ site.author.location }}</span>
+    <span>
+      {% if site.author.github %}<a href="https://github.com/{{ site.author.github }}" target="_blank" rel="noopener">GitHub</a> · {% endif %}
+      {% if site.author.linkedin %}<a href="https://linkedin.com/in/{{ site.author.linkedin }}" target="_blank" rel="noopener">LinkedIn</a> · {% endif %}
+      {% if site.author.email %}<a href="mailto:{{ site.author.email }}">Email</a>{% endif %}
+    </span>
+  </div>
+</footer>
 
 <script src="{{ '/assets/js/main.js' | relative_url }}"></script>
 </body>

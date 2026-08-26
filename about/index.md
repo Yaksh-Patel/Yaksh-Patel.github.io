@@ -2,145 +2,159 @@
 layout: default
 title: About
 permalink: /about/
+narrow: true
 ---
 
-<article class="about-layout">
-  <!--
-    EDIT THIS FILE: /about/index.md
-    Replace all placeholder text with your own content.
-    Add your photo to /assets/images/avatar-large.jpg
-  -->
+<div class="page-header">
+  <span class="eyebrow">About</span>
+  <h1>Yaksh Patel</h1>
+  <p>{{ site.author.role }} · {{ site.author.location }}</p>
+</div>
 
-  <h1>About Me</h1>
+<div class="post-content">
 
-  <!-- Replace with your photo:
-  <img src="/assets/images/avatar-large.jpg" alt="Yaksh Patel" class="about-photo" />
-  -->
+<p class="prose-lead">
+  I build machine learning systems that make consequential decisions — and I care most
+  about the part everyone skips: what happens after the model ships.
+</p>
 
-  <h2>Who am I</h2>
+<p>
+  My work has been in credit, fraud and risk at fintechs and a bank, which is a useful place
+  to learn ML engineering because the feedback is unforgiving. A model that leaks future
+  information scores beautifully offline and loses money in production. A pipeline that
+  silently drifts costs real portfolio performance before anyone notices. So I've spent my
+  career on the full path — ingestion, feature engineering, training with validation that
+  respects temporal ordering, deployment, and the monitoring that catches problems before a
+  business metric does.
+</p>
 
-  <p>
-    I am <strong>Yaksh Patel</strong>, a Senior Data Scientist working on building scalable machine learning systems across high impact problem areas.
-  </p>
+<p>
+  That's pushed my interest steadily toward the systems layer: how ML services are
+  architected, where state should live, what has to be synchronous, how you validate
+  something whose correctness is statistical rather than binary, and how you keep a model
+  explainable to the people accountable for its decisions. Increasingly that includes
+  building with the current generation of models and treating them as engineering problems
+  — architecture, failure modes, evaluation, and where a human still has to hold the wheel.
+</p>
 
-  <p>
-    My experience includes credit, fraud, and risk modeling in fintech, where I have developed end to end machine learning solutions from exploratory analysis and feature engineering to deployment and monitoring in production. I have worked with tree based models, graph based methods, and large scale tabular data to solve problems that directly influence business decisions.
-  </p>
+<p>
+  I write things down here, and I keep an open
+  <a href="https://yaksh-patel.github.io/ml-guide" target="_blank" rel="noopener">54-topic ML/DS
+  study guide</a> that covers everything from linear algebra to the LLM era.
+</p>
 
-  <p>
-    Beyond specific domains, my primary interest is in machine learning and deep learning. I enjoy designing robust systems, improving model generalization, and turning data into decisions that can be trusted in real world settings. I care about interpretability, disciplined experimentation, and building models that perform reliably outside of controlled environments.
-  </p>
+<h2>Experience</h2>
 
-  <p>
-    I use this space to document technical explorations, ideas, and learnings across machine learning, deep learning, and applied data science.
-  </p>
-
-  <h2>Experience</h2>
-
-  <div class="timeline">
-    <div class="timeline-item">
-      <div class="tl-period">Oct '24 – Present</div>
-      <div class="tl-title">Senior Data Scientist</div>
-      <div class="tl-org"><strong>PayZen</strong> · San Francisco (Remote)</div>
-      <div class="tl-desc">
-        <ul>
-          <li>Building and deploying machine learning systems for credit decisioning and collections</li>
-          <li>Developed end to end models improving operational efficiency and portfolio performance</li>
-          <li>Automated portfolio monitoring and reporting pipelines for risk tracking</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="timeline-item">
-      <div class="tl-period">Jun '22 – Oct '24</div>
-      <div class="tl-title">Associate</div>
-      <div class="tl-org"><strong>Goldman Sachs</strong> · Bengaluru</div>
-      <div class="tl-desc">
-        <ul>
-          <li>Worked on credit and fraud decision systems for Apple Card, GM Card, and Personal Loans</li>
-          <li>Developed graph based approaches for fraud ring detection and improved underwriting strategies</li>
-          <li>Contributed to model monitoring, validation, and use of alternative data sources</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="timeline-item">
-      <div class="tl-period">May '21 – Aug '21</div>
-      <div class="tl-title">Data Science Intern</div>
-      <div class="tl-org"><strong>Simpl (One Sigma Tech. Pvt. Ltd.)</strong> · Bengaluru (Remote)</div>
-      <div class="tl-desc">
-        <ul>
-          <li>Built fraud detection systems using clustering and graph based techniques</li>
-          <li>Improved fraud detection and contributed to onboarding risk policies and scoring systems</li>
-        </ul>
-      </div>
+<div class="timeline">
+  <div class="timeline-item">
+    <div class="tl-period">Oct 2024 — Present</div>
+    <div class="tl-title">Senior Data Scientist</div>
+    <div class="tl-org"><strong>PayZen</strong> · San Francisco (Remote)</div>
+    <div class="tl-desc">
+      <ul>
+        <li>Build and deploy the ML systems behind credit decisioning and collections strategy</li>
+        <li>Own models end to end — feature pipelines through production deployment — with measurable gains in operational efficiency and portfolio performance</li>
+        <li>Automated portfolio monitoring and reporting pipelines so risk shifts surface early rather than at review time</li>
+      </ul>
     </div>
   </div>
 
-  <h2>Education</h2>
-
-  <div class="timeline">
-    <div class="timeline-item">
-      <div class="tl-period">2017 – 2022</div>
-      <div class="tl-title">Dual Degree: B.Tech. (Mechanical Engineering) + M.Tech. (Financial Engineering)</div>
-      <div class="tl-org">Indian Institute of Technology Kharagpur · Kharagpur, West Bengal</div>
-      <div class="tl-desc">CGPA: 8.41/10</div>
+  <div class="timeline-item">
+    <div class="tl-period">Jun 2022 — Oct 2024</div>
+    <div class="tl-title">Associate</div>
+    <div class="tl-org"><strong>Goldman Sachs</strong> · Bengaluru</div>
+    <div class="tl-desc">
+      <ul>
+        <li>Worked on credit and fraud decision systems for Apple Card, GM Card and Personal Loans</li>
+        <li>Built graph-based approaches for fraud-ring detection and improved underwriting strategy</li>
+        <li>Contributed to model monitoring, validation, and the integration of alternative data sources</li>
+      </ul>
     </div>
   </div>
 
-  <h2>Technical Skills</h2>
-
-  <div class="skills-grid">
-    <div class="skill-box">
-      <div class="skill-name">Python</div>
-      <div class="skill-bar"><div class="skill-fill" style="width:95%"></div></div>
+  <div class="timeline-item">
+    <div class="tl-period">May 2021 — Aug 2021</div>
+    <div class="tl-title">Data Science Intern</div>
+    <div class="tl-org"><strong>Simpl</strong> (One Sigma Technologies) · Bengaluru (Remote)</div>
+    <div class="tl-desc">
+      <ul>
+        <li>Built fraud detection using clustering and graph-based techniques</li>
+        <li>Contributed to onboarding risk policy and scoring systems</li>
+      </ul>
     </div>
+  </div>
+</div>
 
-    <div class="skill-box">
-      <div class="skill-name">SQL</div>
-      <div class="skill-bar"><div class="skill-fill" style="width:95%"></div></div>
-    </div>
+<h2>Education</h2>
 
-    <div class="skill-box">
-      <div class="skill-name">Machine Learning</div>
-      <div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div>
-    </div>
+<div class="timeline">
+  <div class="timeline-item">
+    <div class="tl-period">2017 — 2022</div>
+    <div class="tl-title">B.Tech. Mechanical Engineering + M.Tech. Financial Engineering</div>
+    <div class="tl-org">Indian Institute of Technology Kharagpur</div>
+    <div class="tl-desc">Dual degree · CGPA 8.41/10</div>
+  </div>
+</div>
 
-    <div class="skill-box">
-      <div class="skill-name">Feature Engineering</div>
-      <div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div>
-    </div>
+<h2>Toolkit</h2>
 
-    <div class="skill-box">
-      <div class="skill-name">Statistics & Probability</div>
-      <div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div>
-    </div>
-
-    <div class="skill-box">
-      <div class="skill-name">XGBoost / LightGBM</div>
-      <div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div>
-    </div>
-
-    <div class="skill-box">
-      <div class="skill-name">PySpark & Big Data</div>
-      <div class="skill-bar"><div class="skill-fill" style="width:75%"></div></div>
-    </div>
-
-    <div class="skill-box">
-      <div class="skill-name">Data Visualization (Matplotlib / Seaborn)</div>
-      <div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div>
-    </div>
-
-    <div class="skill-box">
-      <div class="skill-name">Deep Learning (PyTorch / TensorFlow)</div>
-      <div class="skill-bar"><div class="skill-fill" style="width:60%"></div></div>
+<div class="skill-groups">
+  <div class="skill-group">
+    <div class="skill-group-name">Modelling</div>
+    <div class="chip-row">
+      <span class="chip">XGBoost</span>
+      <span class="chip">LightGBM</span>
+      <span class="chip">Graph methods</span>
+      <span class="chip">Feature engineering</span>
+      <span class="chip">WoE encoding</span>
+      <span class="chip">Statistics &amp; probability</span>
+      <span class="chip">Interpretability</span>
     </div>
   </div>
 
-  <h2>Contact</h2>
+  <div class="skill-group">
+    <div class="skill-group-name">ML systems</div>
+    <div class="chip-row">
+      <span class="chip">Feature pipelines</span>
+      <span class="chip">Walk-forward validation</span>
+      <span class="chip">MLflow</span>
+      <span class="chip">Optuna</span>
+      <span class="chip">Batch scoring</span>
+      <span class="chip">Drift &amp; PSI monitoring</span>
+      <span class="chip">Model validation</span>
+    </div>
+  </div>
 
-  <p>
-    For any enquiries, you can reach me at
-    <a href="mailto:{{ site.author.email }}">{{ site.author.email }}</a>.
-  </p>
-</article>
+  <div class="skill-group">
+    <div class="skill-group-name">Deep learning &amp; AI</div>
+    <div class="chip-row">
+      <span class="chip">PyTorch</span>
+      <span class="chip">TensorFlow</span>
+      <span class="chip">NLP</span>
+      <span class="chip">LLM applications</span>
+      <span class="chip">AI-assisted development</span>
+    </div>
+  </div>
+
+  <div class="skill-group">
+    <div class="skill-group-name">Data &amp; languages</div>
+    <div class="chip-row">
+      <span class="chip">Python</span>
+      <span class="chip">SQL</span>
+      <span class="chip">PySpark</span>
+      <span class="chip">Large-scale tabular data</span>
+      <span class="chip">Matplotlib</span>
+      <span class="chip">Seaborn</span>
+    </div>
+  </div>
+</div>
+
+<h2>Contact</h2>
+
+<p>
+  Reach me at <a href="mailto:{{ site.author.email }}">{{ site.author.email }}</a>, or on
+  <a href="https://linkedin.com/in/{{ site.author.linkedin }}" target="_blank" rel="noopener">LinkedIn</a>
+  and <a href="https://github.com/{{ site.author.github }}" target="_blank" rel="noopener">GitHub</a>.
+</p>
+
+</div>
