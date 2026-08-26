@@ -33,6 +33,11 @@
   --accent-2-soft: #fbeedd;
 
   --mesh:          rgba(12, 19, 23, .07);
+  --mark-bg:       #0c1317;
+  --mark-fg:       #33d6bb;
+  --mark-border:   transparent;
+  --mark-hov-bg:   #00786a;
+  --mark-hov-fg:   #ffffff;
   --code-bg:       #f1f4f6;
   --selection:     rgba(0, 120, 106, .16);
 
@@ -70,6 +75,11 @@
   --accent-2-soft: #2a2113;
 
   --mesh:          rgba(229, 236, 239, .07);
+  --mark-bg:       #161d22;
+  --mark-fg:       #33d6bb;
+  --mark-border:   #2a4b47;
+  --mark-hov-bg:   #33d6bb;
+  --mark-hov-fg:   #06120f;
   --code-bg:       #131a1f;
   --selection:     rgba(51, 214, 187, .22);
 }
@@ -219,33 +229,54 @@ code, pre { font-family: var(--font-mono); }
   display: inline-flex;
   align-items: center;
   gap: 11px;
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: .96rem;
-  letter-spacing: -.01em;
   color: var(--text);
 
   &:hover { color: var(--text); }
 
+  /* Tile carries the colour; the glyph inherits currentColor, so one symbol
+     serves both themes and inverts cleanly on hover. */
   .brand-mark {
-    width: 30px;
-    height: 30px;
+    width: 34px;
+    height: 34px;
     display: grid;
     place-items: center;
-    border-radius: 8px;
-    background: var(--text);
-    color: var(--bg);
-    font-family: var(--font-mono);
-    font-size: .68rem;
-    font-weight: 500;
-    letter-spacing: .02em;
-    transition: background .2s var(--ease);
+    border-radius: 10px;
+    background: var(--mark-bg);
+    color: var(--mark-fg);
+    border: 1px solid var(--mark-border);
+    flex-shrink: 0;
+    transition: background .22s var(--ease), color .22s var(--ease),
+                border-color .22s var(--ease), transform .22s var(--ease);
+
+    svg { width: 21px; height: 21px; display: block; }
   }
 
-  &:hover .brand-mark { background: var(--accent); color: #fff; }
-}
+  &:hover .brand-mark {
+    background: var(--mark-hov-bg);
+    color: var(--mark-hov-fg);
+    border-color: var(--mark-hov-bg);
+    transform: rotate(-4deg) scale(1.04);
+  }
 
-[data-theme="dark"] .brand:hover .brand-mark { color: #06120f; }
+  .brand-text { display: flex; flex-direction: column; line-height: 1.15; }
+
+  .brand-name {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: .97rem;
+    letter-spacing: -.015em;
+  }
+
+  .brand-role {
+    font-family: var(--font-mono);
+    font-size: .58rem;
+    font-weight: 500;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    margin-top: 1px;
+  }
+}
 
 .site-nav {
   display: flex;
@@ -1137,6 +1168,7 @@ code, pre { font-family: var(--font-mono); }
 }
 
 @media (max-width: 560px) {
+  .brand .brand-role { display: none; }
   .project-spec .spec-row,
   .project-spec.project-spec--page .spec-row { grid-template-columns: 1fr; gap: 2px; padding: 8px 0; }
   .project-card .project-header { flex-direction: column; }

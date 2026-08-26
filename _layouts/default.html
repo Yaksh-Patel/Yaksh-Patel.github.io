@@ -6,6 +6,7 @@
   {% seo %}
 
   <link rel="icon" type="image/svg+xml" href="{{ '/assets/images/favicon.svg' | relative_url }}" />
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ '/assets/images/apple-touch-icon.png' | relative_url }}" />
   <meta name="theme-color" content="#00786a" media="(prefers-color-scheme: light)" />
   <meta name="theme-color" content="#0a0e10" media="(prefers-color-scheme: dark)" />
 
@@ -43,9 +44,14 @@
 
 <header class="site-header" id="siteHeader">
   <div class="nav-inner">
-    <a href="{{ '/' | relative_url }}" class="brand">
-      <span class="brand-mark">{{ site.author.initials }}</span>
-      {{ site.title }}
+    <a href="{{ '/' | relative_url }}" class="brand" aria-label="{{ site.author.name }} — home">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 64 64"><use href="#i-mark"/></svg>
+      </span>
+      <span class="brand-text">
+        <span class="brand-name">{{ site.title }}</span>
+        <span class="brand-role">{{ site.author.role }}</span>
+      </span>
     </a>
 
     <nav aria-label="Primary">
