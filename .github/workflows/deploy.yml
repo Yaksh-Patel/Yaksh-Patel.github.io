@@ -27,11 +27,6 @@ jobs:
           ruby-version: '3.2'
           bundler-cache: true
 
-      - name: Build CSS (compile SCSS)
-        run: |
-          gem install sass
-          sass assets/css/main.scss assets/css/main.css --style=compressed
-
       - name: Build Jekyll
         run: bundle exec jekyll build
         env:

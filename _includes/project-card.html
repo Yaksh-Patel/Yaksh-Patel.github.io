@@ -6,13 +6,13 @@
       {% if project.ai_assisted %}<span class="badge-ai" title="Built with AI coding tools, directed by me">AI-built</span>{% endif %}
     </h3>
     <div class="project-links">
-      {% if project.github %}
+      {% if project.github != blank %}
       <a href="{{ project.github }}" class="project-link" target="_blank" rel="noopener">⌥ GitHub</a>
       {% endif %}
-      {% if project.demo %}
+      {% if project.demo != blank %}
       <a href="{{ project.demo }}" class="project-link" target="_blank" rel="noopener">🚀 Demo</a>
       {% endif %}
-      {% if project.paper %}
+      {% if project.paper != blank %}
       <a href="{{ project.paper }}" class="project-link" target="_blank" rel="noopener">📄 Paper</a>
       {% endif %}
     </div>
@@ -22,12 +22,12 @@
   <p class="project-desc">{{ project.description }}</p>
   {% endif %}
 
-  {% if project.platform or project.role or project.status %}
-  <dl class="project-meta-grid">
-    {% if project.platform %}<dt>Stack</dt><dd>{{ project.platform }}</dd>{% endif %}
-    {% if project.role %}<dt>My role</dt><dd>{{ project.role }}</dd>{% endif %}
-    {% if project.built_with %}<dt>Built with</dt><dd>{{ project.built_with }}</dd>{% endif %}
-    {% if project.status %}<dt>Status</dt><dd>{{ project.status }}</dd>{% endif %}
+  {% if project.platform != blank or project.role != blank or project.built_with != blank or project.status != blank %}
+  <dl class="project-spec">
+    {% if project.platform != blank %}<div class="spec-row"><dt>Stack</dt><dd>{{ project.platform }}</dd></div>{% endif %}
+    {% if project.role != blank %}<div class="spec-row"><dt>My role</dt><dd>{{ project.role }}</dd></div>{% endif %}
+    {% if project.built_with != blank %}<div class="spec-row"><dt>Built with</dt><dd>{{ project.built_with }}</dd></div>{% endif %}
+    {% if project.status != blank %}<div class="spec-row"><dt>Status</dt><dd>{{ project.status }}</dd></div>{% endif %}
   </dl>
   {% endif %}
 

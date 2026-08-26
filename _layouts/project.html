@@ -7,17 +7,17 @@ layout: default
     <h1>{{ page.title }}{% if page.ai_assisted %} <span class="badge-ai badge-ai--lg" title="Built with AI coding tools, directed by me">AI-built</span>{% endif %}</h1>
     <div class="post-header-meta">
       {% if page.date %}<span>📅 {{ page.date | date: "%B %Y" }}</span>{% endif %}
-      {% if page.status %}<span>· {{ page.status }}</span>{% endif %}
+      {% if page.status != blank %}<span>· {{ page.status }}</span>{% endif %}
     </div>
-    {% if page.github or page.demo or page.paper %}
+    {% if page.github != blank or page.demo != blank or page.paper != blank %}
     <div class="project-links" style="margin-top:12px;">
-      {% if page.github %}
+      {% if page.github != blank %}
       <a href="{{ page.github }}" target="_blank" rel="noopener" class="project-link">⌥ GitHub</a>
       {% endif %}
-      {% if page.demo %}
+      {% if page.demo != blank %}
       <a href="{{ page.demo }}" target="_blank" rel="noopener" class="project-link">🚀 Demo</a>
       {% endif %}
-      {% if page.paper %}
+      {% if page.paper != blank %}
       <a href="{{ page.paper }}" target="_blank" rel="noopener" class="project-link">📄 Paper</a>
       {% endif %}
     </div>
@@ -25,18 +25,18 @@ layout: default
   </header>
 
   {% if page.tags %}
-  <div class="post-tags" style="margin-bottom:24px;">
+  <div class="post-tags" style="margin-bottom:20px;">
     {% for tag in page.tags %}
     <span class="tag">{{ tag }}</span>
     {% endfor %}
   </div>
   {% endif %}
 
-  {% if page.platform or page.role or page.built_with %}
-  <dl class="project-meta-grid project-meta-grid--page">
-    {% if page.platform %}<dt>Stack</dt><dd>{{ page.platform }}</dd>{% endif %}
-    {% if page.role %}<dt>My role</dt><dd>{{ page.role }}</dd>{% endif %}
-    {% if page.built_with %}<dt>Built with</dt><dd>{{ page.built_with }}</dd>{% endif %}
+  {% if page.platform != blank or page.role != blank or page.built_with != blank %}
+  <dl class="project-spec project-spec--page">
+    {% if page.platform != blank %}<div class="spec-row"><dt>Stack</dt><dd>{{ page.platform }}</dd></div>{% endif %}
+    {% if page.role != blank %}<div class="spec-row"><dt>My role</dt><dd>{{ page.role }}</dd></div>{% endif %}
+    {% if page.built_with != blank %}<div class="spec-row"><dt>Built with</dt><dd>{{ page.built_with }}</dd></div>{% endif %}
   </dl>
   {% endif %}
 
@@ -46,7 +46,7 @@ layout: default
     and I directed them. The idea, the product decisions, the architecture calls and the
     review loop were mine; the typing was the model's. It's a pet project for learning where
     AI-assisted development genuinely works and where it still needs a human holding the
-    wheel. <a href="/projects/">More on why I build these →</a>
+    wheel. <a href="{{ '/projects/' | relative_url }}">More on why I build these →</a>
   </aside>
   {% endif %}
 

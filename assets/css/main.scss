@@ -1,3 +1,8 @@
+---
+# Front matter tells Jekyll to compile this file itself
+# (jekyll-sass-converter). Do not commit a built main.css alongside it.
+---
+
 /* ============================================================
    main.scss — Full design system for Yaksh Patel's website
    Inspired by leimao.github.io: clean, readable, sidebar layout
@@ -653,44 +658,45 @@ hr {
   .project-tech { display: flex; flex-wrap: wrap; gap: 4px; }
 }
 
-/* ---- AI Lab: badges, meta grid, disclosure ---- */
+/* ---- AI Lab: badges, spec rows, disclosure ---- */
 
-/* "AI-built" pill. Uses accent-soft so it reads as a label, not a warning. */
+/* "AI-built" pill. Mono + uppercase so it reads as metadata, never as part of
+   the serif title it sits beside. */
 .badge-ai {
   display: inline-block;
-  vertical-align: middle;
-  margin-left: 8px;
+  vertical-align: 2px;
+  margin-left: 10px;
   font-family: var(--font-mono);
-  font-size: .62rem;
+  font-size: .58rem;
   font-weight: 500;
-  letter-spacing: .04em;
+  letter-spacing: .08em;
   text-transform: uppercase;
+  line-height: 1.6;
   background: var(--accent-soft);
   color: var(--accent);
   border: 1px solid transparent;
   border-radius: 999px;
-  padding: 2px 8px;
+  padding: 1px 9px;
   white-space: nowrap;
 
   &.badge-ai--lg {
-    font-size: .68rem;
-    padding: 3px 10px;
-    margin-left: 10px;
+    font-size: .64rem;
+    padding: 3px 11px;
+    vertical-align: 4px;
   }
 }
 
-[data-theme="dark"] .badge-ai { border-color: rgba(91,155,213,.28); }
+[data-theme="dark"] .badge-ai { border-color: rgba(91,155,213,.3); }
 
-/* Lab cards get a subtle accent edge so the two groups read as different shelves. */
+/* Lab cards carry an accent edge so the two shelves read as distinct. */
 .project-card--lab {
   border-left: 3px solid var(--accent-soft);
-
   &:hover { border-left-color: var(--accent); }
 }
 
 [data-theme="dark"] .project-card--lab { border-left-color: rgba(91,155,213,.35); }
 
-/* The framing note above the AI Lab cards. */
+/* Framing note above the AI Lab cards. */
 .lab-note {
   background: var(--bg-alt);
   border: 1px solid var(--border-light);
@@ -703,7 +709,6 @@ hr {
     line-height: 1.7;
     color: var(--text-muted);
     margin-bottom: 10px;
-
     &:last-child { margin-bottom: 0; }
   }
 
@@ -717,32 +722,54 @@ hr {
   }
 }
 
-/* Stack / role / status key-value rows on cards and project pages. */
-.project-meta-grid {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 3px 14px;
-  margin: 12px 0;
-  font-size: .8rem;
+/* ---- Spec rows (Stack / My role / Built with / Status) ----
+   Label and value must never look alike: the label is small, mono, uppercase
+   and muted; the value is body-size and full-contrast. Hairlines separate the
+   rows so the eye can track label -> value horizontally. */
+.project-spec {
+  margin: 14px 0 12px;
+  border-top: 1px solid var(--border-light);
+
+  .spec-row {
+    display: grid;
+    grid-template-columns: 88px 1fr;
+    gap: 14px;
+    align-items: baseline;
+    padding: 7px 0;
+    border-bottom: 1px solid var(--border-light);
+  }
 
   dt {
     font-family: var(--font-mono);
-    font-size: .68rem;
-    letter-spacing: .03em;
+    font-size: .6rem;
+    font-weight: 500;
+    letter-spacing: .08em;
     text-transform: uppercase;
     color: var(--text-light);
-    padding-top: 2px;
     white-space: nowrap;
   }
 
-  dd { color: var(--text-muted); line-height: 1.55; }
+  dd {
+    font-size: .84rem;
+    line-height: 1.5;
+    color: var(--text);
+  }
 
-  &.project-meta-grid--page {
-    padding: 16px 20px;
-    margin-bottom: 24px;
+  /* Panel treatment on a project page, where this block is the header summary. */
+  &.project-spec--page {
+    margin: 0 0 28px;
+    padding: 4px 20px;
     background: var(--bg-alt);
-    border-radius: var(--radius-sm);
-    font-size: .85rem;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius);
+
+    .spec-row {
+      grid-template-columns: 104px 1fr;
+      padding: 10px 0;
+      &:last-child { border-bottom: none; }
+    }
+
+    dd { font-size: .875rem; }
   }
 }
 
@@ -759,17 +786,21 @@ hr {
 
   strong { color: var(--text); font-weight: 600; }
 
-  a { color: var(--accent); text-decoration: none;
-      &:hover { text-decoration: underline; } }
+  a {
+    color: var(--accent);
+    text-decoration: none;
+    &:hover { text-decoration: underline; }
+  }
 }
 
-@media (max-width: 600px) {
-  .project-meta-grid {
+/* Stack the label above the value on narrow screens rather than squeezing
+   a 88px column against a long value. */
+@media (max-width: 560px) {
+  .project-spec .spec-row,
+  .project-spec.project-spec--page .spec-row {
     grid-template-columns: 1fr;
-    gap: 1px;
-
-    dt { padding-top: 8px; }
-    dd { margin-bottom: 4px; }
+    gap: 2px;
+    padding: 8px 0;
   }
 }
 
