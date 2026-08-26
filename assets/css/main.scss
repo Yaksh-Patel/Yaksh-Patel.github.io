@@ -653,6 +653,126 @@ hr {
   .project-tech { display: flex; flex-wrap: wrap; gap: 4px; }
 }
 
+/* ---- AI Lab: badges, meta grid, disclosure ---- */
+
+/* "AI-built" pill. Uses accent-soft so it reads as a label, not a warning. */
+.badge-ai {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 8px;
+  font-family: var(--font-mono);
+  font-size: .62rem;
+  font-weight: 500;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  background: var(--accent-soft);
+  color: var(--accent);
+  border: 1px solid transparent;
+  border-radius: 999px;
+  padding: 2px 8px;
+  white-space: nowrap;
+
+  &.badge-ai--lg {
+    font-size: .68rem;
+    padding: 3px 10px;
+    margin-left: 10px;
+  }
+}
+
+[data-theme="dark"] .badge-ai { border-color: rgba(91,155,213,.28); }
+
+/* Lab cards get a subtle accent edge so the two groups read as different shelves. */
+.project-card--lab {
+  border-left: 3px solid var(--accent-soft);
+
+  &:hover { border-left-color: var(--accent); }
+}
+
+[data-theme="dark"] .project-card--lab { border-left-color: rgba(91,155,213,.35); }
+
+/* The framing note above the AI Lab cards. */
+.lab-note {
+  background: var(--bg-alt);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  margin-bottom: 20px;
+
+  p {
+    font-size: .875rem;
+    line-height: 1.7;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+
+    &:last-child { margin-bottom: 0; }
+  }
+
+  strong { color: var(--text); font-weight: 600; }
+
+  .lab-note-lead {
+    font-family: var(--font-serif);
+    font-size: 1rem;
+    color: var(--text);
+    margin-bottom: 12px;
+  }
+}
+
+/* Stack / role / status key-value rows on cards and project pages. */
+.project-meta-grid {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 3px 14px;
+  margin: 12px 0;
+  font-size: .8rem;
+
+  dt {
+    font-family: var(--font-mono);
+    font-size: .68rem;
+    letter-spacing: .03em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    padding-top: 2px;
+    white-space: nowrap;
+  }
+
+  dd { color: var(--text-muted); line-height: 1.55; }
+
+  &.project-meta-grid--page {
+    padding: 16px 20px;
+    margin-bottom: 24px;
+    background: var(--bg-alt);
+    border-radius: var(--radius-sm);
+    font-size: .85rem;
+  }
+}
+
+/* Attribution note at the top of an AI-built project page. */
+.ai-disclosure {
+  border-left: 3px solid var(--accent);
+  background: var(--accent-soft);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  padding: 14px 18px;
+  margin-bottom: 28px;
+  font-size: .85rem;
+  line-height: 1.7;
+  color: var(--text-muted);
+
+  strong { color: var(--text); font-weight: 600; }
+
+  a { color: var(--accent); text-decoration: none;
+      &:hover { text-decoration: underline; } }
+}
+
+@media (max-width: 600px) {
+  .project-meta-grid {
+    grid-template-columns: 1fr;
+    gap: 1px;
+
+    dt { padding-top: 8px; }
+    dd { margin-bottom: 4px; }
+  }
+}
+
 /* ---- Article / Post Content ---- */
 .post-layout {
   background: var(--bg-card);

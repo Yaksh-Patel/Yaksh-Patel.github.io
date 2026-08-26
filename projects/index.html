@@ -6,47 +6,66 @@ permalink: /projects/
 
 <div class="page-header">
   <h1>Projects</h1>
-  <p>Selected work across machine learning, credit risk, and data engineering.</p>
+  <p>Selected work across machine learning, credit risk, and data engineering — plus a
+     side shelf of AI-built experiments.</p>
 </div>
 
-{% assign sorted_projects = site.projects | sort: "date" | reverse %}
+{% assign all_projects = site.projects | sort: "date" | reverse %}
+{% assign work_projects = all_projects | where_exp: "p", "p.ai_assisted != true" %}
+{% assign lab_projects = all_projects | where_exp: "p", "p.ai_assisted == true" %}
 
-{% if sorted_projects.size > 0 %}
+<!-- ===== WORK & RESEARCH ===== -->
+{% if work_projects.size > 0 %}
+<div class="section-header">
+  <h2>Work &amp; Research</h2>
+  <span class="section-line"></span>
+</div>
+
 <div class="card-list">
-  {% for project in sorted_projects %}
-  <div class="project-card">
-    <div class="project-header">
-      <h3><a href="{{ project.url | relative_url }}">{{ project.title }}</a></h3>
-      <div class="project-links">
-        {% if project.github %}
-        <a href="{{ project.github }}" class="project-link" target="_blank" rel="noopener">⌥ GitHub</a>
-        {% endif %}
-        {% if project.demo %}
-        <a href="{{ project.demo }}" class="project-link" target="_blank" rel="noopener">🚀 Demo</a>
-        {% endif %}
-        {% if project.paper %}
-        <a href="{{ project.paper }}" class="project-link" target="_blank" rel="noopener">📄 Paper</a>
-        {% endif %}
-      </div>
-    </div>
-    {% if project.description %}
-    <p class="project-desc">{{ project.description }}</p>
-    {% endif %}
-    {% if project.tags %}
-    <div class="project-tech">
-      {% for tag in project.tags %}
-      <span class="tag">{{ tag }}</span>
-      {% endfor %}
-    </div>
-    {% endif %}
-  </div>
+  {% for project in work_projects %}
+    {% include project-card.html project=project %}
   {% endfor %}
 </div>
+{% endif %}
 
-{% else %}
+<!-- ===== AI LAB ===== -->
+{% if lab_projects.size > 0 %}
+<div class="section-header">
+  <h2>AI Lab</h2>
+  <span class="section-line"></span>
+</div>
+
+<div class="lab-note">
+  <p class="lab-note-lead">
+    Pass-time pet projects, built to find the edges of what AI coding tools can do.
+  </p>
+  <p>
+    <strong>I didn't write this code — AI tools did, and I directed them.</strong> I brought
+    the idea, the product decisions, the architecture calls, and the review loop: deciding
+    what to build, catching where the model got it wrong, and pushing back until the result
+    was something I'd actually keep installed. The typing was the model's; the judgement
+    was mine.
+  </p>
+  <p>
+    I ship them because the interesting artifact isn't the app — it's what the process
+    reveals about where AI-assisted development genuinely works today, and where it still
+    needs a human holding the wheel. My read so far: these tools produce competent code
+    fast, and nearly all the remaining leverage is in knowing which competent-looking thing
+    is going to fail in the real world. That gap is the thing worth understanding before it
+    reshapes how software gets built.
+  </p>
+</div>
+
+<div class="card-list">
+  {% for project in lab_projects %}
+    {% include project-card.html project=project %}
+  {% endfor %}
+</div>
+{% endif %}
+
+{% if all_projects.size == 0 %}
 <div class="project-card" style="text-align:center;padding:48px;color:var(--text-muted);">
   <p style="font-size:2rem;margin-bottom:12px;">🔧</p>
   <p>No projects yet. Add <code>.md</code> files to <code>_projects/</code> to showcase your work.</p>
-  <p style="font-size:.85rem;margin-top:8px;">See <code>_projects/example-project.md</code> for the template.</p>
 </div>
 {% endif %}

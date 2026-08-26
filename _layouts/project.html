@@ -4,7 +4,7 @@ layout: default
 
 <article class="post-layout">
   <header class="post-header">
-    <h1>{{ page.title }}</h1>
+    <h1>{{ page.title }}{% if page.ai_assisted %} <span class="badge-ai badge-ai--lg" title="Built with AI coding tools, directed by me">AI-built</span>{% endif %}</h1>
     <div class="post-header-meta">
       {% if page.date %}<span>📅 {{ page.date | date: "%B %Y" }}</span>{% endif %}
       {% if page.status %}<span>· {{ page.status }}</span>{% endif %}
@@ -30,6 +30,24 @@ layout: default
     <span class="tag">{{ tag }}</span>
     {% endfor %}
   </div>
+  {% endif %}
+
+  {% if page.platform or page.role or page.built_with %}
+  <dl class="project-meta-grid project-meta-grid--page">
+    {% if page.platform %}<dt>Stack</dt><dd>{{ page.platform }}</dd>{% endif %}
+    {% if page.role %}<dt>My role</dt><dd>{{ page.role }}</dd>{% endif %}
+    {% if page.built_with %}<dt>Built with</dt><dd>{{ page.built_with }}</dd>{% endif %}
+  </dl>
+  {% endif %}
+
+  {% if page.ai_assisted %}
+  <aside class="ai-disclosure">
+    <strong>How this was built.</strong> I didn't hand-write this code — AI coding tools did,
+    and I directed them. The idea, the product decisions, the architecture calls and the
+    review loop were mine; the typing was the model's. It's a pet project for learning where
+    AI-assisted development genuinely works and where it still needs a human holding the
+    wheel. <a href="/projects/">More on why I build these →</a>
+  </aside>
   {% endif %}
 
   <div class="post-content">

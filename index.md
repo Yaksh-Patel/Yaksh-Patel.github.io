@@ -102,29 +102,7 @@ title: Home
 <div class="card-list">
   {% assign sorted_projects = site.projects | sort: "date" | reverse %}
   {% for project in sorted_projects limit:3 %}
-  <div class="project-card">
-    <div class="project-header">
-      <h3><a href="{{ project.url | relative_url }}">{{ project.title }}</a></h3>
-      <div class="project-links">
-        {% if project.github %}
-        <a href="{{ project.github }}" class="project-link" target="_blank" rel="noopener">GitHub</a>
-        {% endif %}
-        {% if project.demo %}
-        <a href="{{ project.demo }}" class="project-link" target="_blank" rel="noopener">Demo</a>
-        {% endif %}
-      </div>
-    </div>
-    {% if project.description %}
-    <p class="project-desc">{{ project.description }}</p>
-    {% endif %}
-    {% if project.tags %}
-    <div class="project-tech">
-      {% for tag in project.tags %}
-      <span class="tag">{{ tag }}</span>
-      {% endfor %}
-    </div>
-    {% endif %}
-  </div>
+    {% include project-card.html project=project %}
   {% endfor %}
 </div>
 {% else %}

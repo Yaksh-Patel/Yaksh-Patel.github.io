@@ -1,0 +1,41 @@
+{% assign project = include.project %}
+<div class="project-card{% if project.ai_assisted %} project-card--lab{% endif %}">
+  <div class="project-header">
+    <h3>
+      <a href="{{ project.url | relative_url }}">{{ project.title }}</a>
+      {% if project.ai_assisted %}<span class="badge-ai" title="Built with AI coding tools, directed by me">AI-built</span>{% endif %}
+    </h3>
+    <div class="project-links">
+      {% if project.github %}
+      <a href="{{ project.github }}" class="project-link" target="_blank" rel="noopener">⌥ GitHub</a>
+      {% endif %}
+      {% if project.demo %}
+      <a href="{{ project.demo }}" class="project-link" target="_blank" rel="noopener">🚀 Demo</a>
+      {% endif %}
+      {% if project.paper %}
+      <a href="{{ project.paper }}" class="project-link" target="_blank" rel="noopener">📄 Paper</a>
+      {% endif %}
+    </div>
+  </div>
+
+  {% if project.description %}
+  <p class="project-desc">{{ project.description }}</p>
+  {% endif %}
+
+  {% if project.platform or project.role or project.status %}
+  <dl class="project-meta-grid">
+    {% if project.platform %}<dt>Stack</dt><dd>{{ project.platform }}</dd>{% endif %}
+    {% if project.role %}<dt>My role</dt><dd>{{ project.role }}</dd>{% endif %}
+    {% if project.built_with %}<dt>Built with</dt><dd>{{ project.built_with }}</dd>{% endif %}
+    {% if project.status %}<dt>Status</dt><dd>{{ project.status }}</dd>{% endif %}
+  </dl>
+  {% endif %}
+
+  {% if project.tags %}
+  <div class="project-tech">
+    {% for tag in project.tags %}
+    <span class="tag">{{ tag }}</span>
+    {% endfor %}
+  </div>
+  {% endif %}
+</div>
