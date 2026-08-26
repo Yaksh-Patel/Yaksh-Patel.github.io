@@ -92,7 +92,7 @@ title: Home
 {% endif %}
 
 <!-- ===== RECENT PROJECTS ===== -->
-{% if site.collections.projects.docs.size > 0 %}
+{% if site.projects.size > 0 %}
 <div class="section-header">
   <h2>Selected Projects</h2>
   <span class="section-line"></span>
