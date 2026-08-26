@@ -2,23 +2,31 @@
 layout: default
 ---
 
+{%- assign p_github   = page.github     | default: "" | strip -%}
+{%- assign p_demo     = page.demo       | default: "" | strip -%}
+{%- assign p_paper    = page.paper      | default: "" | strip -%}
+{%- assign p_platform = page.platform   | default: "" | strip -%}
+{%- assign p_role     = page.role       | default: "" | strip -%}
+{%- assign p_built    = page.built_with | default: "" | strip -%}
+{%- assign p_status   = page.status     | default: "" | strip -%}
+
 <article class="post-layout">
   <header class="post-header">
     <h1>{{ page.title }}{% if page.ai_assisted %} <span class="badge-ai badge-ai--lg" title="Built with AI coding tools, directed by me">AI-built</span>{% endif %}</h1>
     <div class="post-header-meta">
       {% if page.date %}<span>📅 {{ page.date | date: "%B %Y" }}</span>{% endif %}
-      {% if page.status != blank %}<span>· {{ page.status }}</span>{% endif %}
+      {% if p_status != "" %}<span>· {{ p_status }}</span>{% endif %}
     </div>
-    {% if page.github != blank or page.demo != blank or page.paper != blank %}
+    {% if p_github != "" or p_demo != "" or p_paper != "" %}
     <div class="project-links" style="margin-top:12px;">
-      {% if page.github != blank %}
-      <a href="{{ page.github }}" target="_blank" rel="noopener" class="project-link">⌥ GitHub</a>
+      {% if p_github != "" %}
+      <a href="{{ p_github }}" target="_blank" rel="noopener" class="project-link">⌥ GitHub</a>
       {% endif %}
-      {% if page.demo != blank %}
-      <a href="{{ page.demo }}" target="_blank" rel="noopener" class="project-link">🚀 Demo</a>
+      {% if p_demo != "" %}
+      <a href="{{ p_demo }}" target="_blank" rel="noopener" class="project-link">🚀 Demo</a>
       {% endif %}
-      {% if page.paper != blank %}
-      <a href="{{ page.paper }}" target="_blank" rel="noopener" class="project-link">📄 Paper</a>
+      {% if p_paper != "" %}
+      <a href="{{ p_paper }}" target="_blank" rel="noopener" class="project-link">📄 Paper</a>
       {% endif %}
     </div>
     {% endif %}
@@ -32,11 +40,11 @@ layout: default
   </div>
   {% endif %}
 
-  {% if page.platform != blank or page.role != blank or page.built_with != blank %}
+  {% if p_platform != "" or p_role != "" or p_built != "" %}
   <dl class="project-spec project-spec--page">
-    {% if page.platform != blank %}<div class="spec-row"><dt>Stack</dt><dd>{{ page.platform }}</dd></div>{% endif %}
-    {% if page.role != blank %}<div class="spec-row"><dt>My role</dt><dd>{{ page.role }}</dd></div>{% endif %}
-    {% if page.built_with != blank %}<div class="spec-row"><dt>Built with</dt><dd>{{ page.built_with }}</dd></div>{% endif %}
+    {% if p_platform != "" %}<div class="spec-row"><dt>Stack</dt><dd>{{ p_platform }}</dd></div>{% endif %}
+    {% if p_role != "" %}<div class="spec-row"><dt>My role</dt><dd>{{ p_role }}</dd></div>{% endif %}
+    {% if p_built != "" %}<div class="spec-row"><dt>Built with</dt><dd>{{ p_built }}</dd></div>{% endif %}
   </dl>
   {% endif %}
 
