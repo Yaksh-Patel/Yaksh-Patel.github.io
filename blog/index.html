@@ -2,60 +2,44 @@
 layout: default
 title: Writing
 permalink: /blog/
+description: >
+  Notes from what I read — machine learning and production systems, but also
+  statistics, mathematics, psychology and philosophy.
 ---
 
 <div class="page-header">
   <span class="eyebrow">Writing</span>
-  <h1>Notes on ML systems</h1>
-  <p>Technical write-ups on machine learning engineering, modelling, and the parts of
-     production systems that only show up once real traffic hits them.</p>
+  <h1>Notes from what I&rsquo;m reading</h1>
+  <p>Machine learning and the systems around it are the day job, so a lot of this is that.
+     But the reading has never stayed in one lane — statistics, mathematics, psychology,
+     philosophy — and the notes follow the reading. Everything is dated; pick a topic or a
+     year, or search the lot.</p>
 </div>
 
 {% if site.posts.size > 0 %}
-<div class="blog-toolbar">
-  <label class="search-bar">
-    <svg aria-hidden="true"><use href="#i-search"/></svg>
-    <input type="search" id="sidebarSearch" placeholder="Search posts…" aria-label="Search posts" />
-  </label>
-  {% assign all_tags = site.posts | map: "tags" | join: "," | split: "," | uniq | sort %}
-  {% if all_tags.size > 0 %}
-  <div class="tag-cloud">
-    {% for tag in all_tags limit:10 %}<span class="tag">{{ tag }}</span>{% endfor %}
-  </div>
-  {% endif %}
+
+<div class="sec-head sec-head--sub">
+  <h2>By topic</h2>
+  <span class="sec-line"></span>
+</div>
+{% include topic-nav.html %}
+
+<div class="sec-head sec-head--sub sec-head--spaced">
+  <h2>Everything, newest first</h2>
+  <span class="sec-line"></span>
 </div>
 
-<div id="blogSearchEmpty" class="post-card" style="display:none;text-align:center;color:var(--text-muted);padding:32px;margin-bottom:20px;">
-  No posts match that search.
-</div>
-
-<div class="card-list">
-  {% assign posts = paginator.posts | default: site.posts %}
-  {% for post in posts %}
-    {% include post-card.html post=post %}
-  {% endfor %}
-</div>
-
-{% if paginator.total_pages > 1 %}
-<div class="pagination">
-  {% if paginator.previous_page %}
-  <a href="{{ paginator.previous_page_path | relative_url }}">← Newer</a>
-  {% else %}<span class="disabled">← Newer</span>{% endif %}
-
-  {% for p in (1..paginator.total_pages) %}
-    {% if p == paginator.page %}<span class="current">{{ p }}</span>
-    {% elsif p == 1 %}<a href="{{ '/blog/' | relative_url }}">{{ p }}</a>
-    {% else %}<a href="{{ site.paginate_path | relative_url | replace: ':num', p }}">{{ p }}</a>{% endif %}
-  {% endfor %}
-
-  {% if paginator.next_page %}
-  <a href="{{ paginator.next_page_path | relative_url }}">Older →</a>
-  {% else %}<span class="disabled">Older →</span>{% endif %}
-</div>
-{% endif %}
+{% comment %}
+  The whole archive renders on one page on purpose. It is grouped by year and
+  filtered in the browser, so paging it would slice a year in half and hide
+  cards the filter is meant to find. Pagination is off in _config.yml for the
+  same reason.
+{% endcomment %}
+{% include writing-toolbar.html posts=site.posts %}
+{% include post-archive.html posts=site.posts %}
 
 {% else %}
-<div class="post-card" style="text-align:center;padding:48px;color:var(--text-muted);">
+<div class="empty-state">
   <p>No posts yet. Add <code>.md</code> files to <code>_posts/</code> named <code>YYYY-MM-DD-title.md</code>.</p>
 </div>
 {% endif %}

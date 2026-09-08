@@ -11,7 +11,7 @@
    mesh instead of shadows and ornament.
    ============================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&family=Caveat:wght@500;600;700&display=swap');
 
 /* ---- Tokens: light ---- */
 :root {
@@ -1029,7 +1029,287 @@ code, pre { font-family: var(--font-mono); }
 }
 
 /* ============================================================
-   Contact band, pagination, footer
+   Writing: topic sections, filters, dated archive
+   ============================================================ */
+
+/* A quieter section head for use inside a page, where the numbered
+   homepage version would shout. */
+.sec-head--sub {
+  margin-bottom: 18px;
+  h2 { font-size: 1.12rem; letter-spacing: -.01em; }
+}
+.sec-head--spaced { margin-top: 48px; }
+
+/* ---- Topic index ---- */
+/* Deliberately not the seamless 1px-gap grid used on the homepage: the topic
+   count is not a multiple of the column count, and a hairline grid leaves a
+   visible hole where the last row runs out. Separate bordered cards wrap
+   without looking broken. */
+.topic-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(248px, 1fr));
+  gap: 12px;
+}
+
+.topic-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 20px 22px 18px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+  transition: border-color .2s var(--ease), transform .2s var(--ease);
+
+  &:hover { border-color: var(--accent); color: var(--text); transform: translateY(-2px); }
+
+  .topic-count {
+    font-family: var(--font-mono);
+    font-size: .64rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+  }
+
+  h3 { font-size: 1.04rem; }
+
+  p {
+    flex: 1;
+    font-size: .85rem;
+    line-height: 1.62;
+    color: var(--text-muted);
+  }
+
+  .topic-go {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 2px;
+    font-family: var(--font-mono);
+    font-size: .68rem;
+    letter-spacing: .04em;
+    color: var(--accent);
+
+    svg { width: 13px; height: 13px; transition: transform .18s var(--ease); }
+  }
+
+  &:hover .topic-go svg { transform: translateX(3px); }
+
+  /* The topic you are already reading stays in the grid, but stops
+     advertising itself as somewhere to go. */
+  &.is-current {
+    background: var(--accent-soft);
+    border-color: var(--accent-line);
+    &:hover { transform: none; border-color: var(--accent-line); }
+    .topic-go { color: var(--text-faint); }
+  }
+}
+
+/* ---- Filter bar: search, topic, year ---- */
+.filter-bar {
+  display: grid;
+  gap: 12px;
+  padding: 14px 18px;
+  background: var(--surface-2);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius);
+  margin-bottom: 26px;
+}
+
+.filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+
+  & + & { padding-top: 12px; border-top: 1px solid var(--border-soft); }
+}
+
+.filter-label {
+  flex: 0 0 42px;
+  font-family: var(--font-mono);
+  font-size: .64rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.chip-set { display: flex; flex-wrap: wrap; gap: 6px; }
+
+.chip-btn {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  padding: 5px 11px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: .7rem;
+  letter-spacing: .02em;
+  cursor: pointer;
+  transition: color .18s var(--ease), border-color .18s var(--ease), background .18s var(--ease);
+
+  &:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+
+  &.is-active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+
+    .chip-num { color: rgba(255, 255, 255, .74); }
+  }
+
+  &:disabled { opacity: .4; cursor: not-allowed; }
+
+  .chip-num { font-size: .62rem; color: var(--text-faint); }
+}
+
+[data-theme="dark"] .chip-btn.is-active {
+  color: #05110f;
+  .chip-num { color: rgba(5, 17, 15, .62); }
+}
+
+.filter-count {
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: .66rem;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+/* ---- Dated archive ---- */
+.archive-year + .archive-year { margin-top: 36px; }
+
+/* The year sticks under the header while you scroll its posts, so you always
+   know which year you are looking at on the way to a date. */
+.archive-head {
+  position: sticky;
+  top: 62px;
+  z-index: 20;
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 14px;
+  padding: 9px 0 7px;
+  background: var(--bg);                                   /* fallback */
+  background: color-mix(in srgb, var(--bg) 90%, transparent);
+  backdrop-filter: blur(8px);
+
+  h2 {
+    font-family: var(--font-mono);
+    font-size: .95rem;
+    letter-spacing: .08em;
+    flex-shrink: 0;
+  }
+
+  .archive-count {
+    font-family: var(--font-mono);
+    font-size: .64rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    flex-shrink: 0;
+  }
+}
+
+.post-card .post-meta time { color: var(--text-muted); }
+
+a.post-category:hover { background: var(--accent); color: #fff; }
+[data-theme="dark"] a.post-category:hover { color: #05110f; }
+
+/* ---- Empty states ---- */
+.empty-state,
+.filter-empty {
+  padding: 40px 28px;
+  text-align: center;
+  background: var(--surface);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius);
+  color: var(--text-muted);
+  font-size: .93rem;
+
+  p { color: var(--text-muted); font-size: .93rem; }
+  p + a, p + .btn { margin-top: 18px; }
+}
+
+.link-btn {
+  border: 0;
+  padding: 0;
+  background: none;
+  font: inherit;
+  color: var(--accent);
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+
+  &:hover { color: var(--accent-hover); }
+}
+
+/* ============================================================
+   Hand-drawn sketches inside a post
+   ============================================================ */
+
+/* The sheet is meant to read as paper photographed and taped in, so it keeps
+   its own eggshell ground in both themes -- inverting it would defeat the
+   whole conceit. Dark mode just takes the glare off. */
+.sketch {
+  margin: 30px 0;
+
+  /* The frame holds the border and the scroll; the sheet inside it keeps its
+     own aspect ratio. */
+  .sketch-frame {
+    overflow-x: auto;
+    background: #f5efdf;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .sketch-svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  /* The sheet is wider than the column; the caption should still read at the
+     column's measure rather than stretching to the full width of the paper. */
+  figcaption {
+    max-width: 62ch;
+    margin: 10px auto 0;
+    font-family: var(--font-mono);
+    font-size: .68rem;
+    line-height: 1.75;
+    letter-spacing: .02em;
+    color: var(--text-faint);
+    text-align: center;
+  }
+}
+
+[data-theme="dark"] .sketch .sketch-frame { filter: brightness(.9) saturate(.94); }
+
+/* Display math. The delimiters are written raw inside a block-level element so
+   kramdown hands them to MathJax untouched, rather than routing them through
+   its own engine, which still emits MathJax-2 script tags. */
+.math-block {
+  margin: 24px 0;
+  text-align: center;
+  overflow-x: auto;
+}
+
+/* Let a sketch break out of the reading measure: at 720px the pen labels get
+   too small to read. */
+.sketch--wide {
+  width: min(100vw - 44px, 1000px);
+  margin-left: 50%;
+  transform: translateX(-50%);
+}
+
+/* ============================================================
+   Contact band, footer
    ============================================================ */
 .contact-band {
   text-align: center;
@@ -1045,40 +1325,6 @@ code, pre { font-family: var(--font-mono); }
   .hero-actions { justify-content: center; margin-top: 0; }
 }
 
-.pagination {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  margin-top: 34px;
-  font-family: var(--font-mono);
-  font-size: .78rem;
-
-  a, span {
-    padding: 7px 12px;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    color: var(--text-muted);
-  }
-  a:hover { border-color: var(--accent); color: var(--accent); }
-  .current { background: var(--accent); border-color: var(--accent); color: #fff; }
-  .disabled { opacity: .4; }
-}
-
-[data-theme="dark"] .pagination .current { color: #05110f; }
-
-/* Blog toolbar — replaces the old every-page sidebar. */
-.blog-toolbar {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 12px;
-  padding: 14px 18px;
-  background: var(--surface-2);
-  border: 1px solid var(--border-soft);
-  border-radius: var(--radius);
-  margin-bottom: 24px;
-}
 
 .search-bar {
   display: flex;
@@ -1165,6 +1411,14 @@ code, pre { font-family: var(--font-mono); }
   .hero-stats .stat:last-child { border-bottom: none; }
   .feature-band { padding: 26px 22px; }
   .sec-head { flex-wrap: wrap; gap: 10px; .sec-line { display: none; } }
+  .archive-head { top: 58px; }
+  .filter-label { flex-basis: 100%; }
+  .filter-count { margin-left: 0; flex-basis: 100%; }
+  .sketch--wide { width: 100%; margin-left: 0; transform: none; }
+
+  /* Below a certain width the pen labels stop being readable, so the sheet
+     scrolls sideways inside its frame rather than shrinking further. */
+  .sketch .sketch-svg { min-width: 620px; }
 }
 
 @media (max-width: 560px) {

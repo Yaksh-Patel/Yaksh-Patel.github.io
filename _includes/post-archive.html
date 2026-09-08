@@ -1,0 +1,29 @@
+{%- comment -%}
+  A run of posts grouped under year headings, newest first. Used by the Writing
+  index and by every topic page.
+
+  Pass `posts`. The year <section>s carry data-year and an id, so main.js can
+  hide a whole year once filtering empties it, and so /blog/#y-2026 lands on a
+  year directly.
+{%- endcomment -%}
+{% assign archive_posts = include.posts %}
+{% assign years = archive_posts | group_by_exp: "p", "p.date | date: '%Y'" %}
+
+<div id="writingArchive" class="archive">
+  {% for year in years %}
+  <section class="archive-year" id="y-{{ year.name }}" data-year="{{ year.name }}">
+    <div class="archive-head">
+      <h2>{{ year.name }}</h2>
+      <span class="archive-count">{{ year.items.size }} {% if year.items.size == 1 %}note{% else %}notes{% endif %}</span>
+      <span class="sec-line"></span>
+    </div>
+    <div class="card-list">
+      {% for post in year.items %}{% include post-card.html post=post %}{% endfor %}
+    </div>
+  </section>
+  {% endfor %}
+</div>
+
+<p id="writingEmpty" class="filter-empty" hidden>
+  Nothing matches that combination. <button type="button" class="link-btn" data-filter-reset>Clear the filters</button>
+</p>

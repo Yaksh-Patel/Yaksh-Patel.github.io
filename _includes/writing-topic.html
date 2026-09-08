@@ -1,0 +1,31 @@
+{%- comment -%}
+  The body of a single topic page. Every file in blog/topics/ is front matter
+  plus one include of this file, so all topic pages stay identical by
+  construction. `page.topic` is the slug it filters on.
+{%- endcomment -%}
+{% assign topic_slug = page.topic %}
+{% assign topic = site.topics | where: "slug", topic_slug | first %}
+{% assign topic_posts = site.posts | where_exp: "p", "p.categories contains topic_slug" %}
+
+<div class="page-header">
+  <span class="eyebrow"><a href="{{ '/blog/' | relative_url }}">Writing</a> / {{ topic.label }}</span>
+  <h1>{{ topic.label }}</h1>
+  <p>{{ topic.blurb }}</p>
+</div>
+
+{% if topic_posts.size > 0 %}
+  {% include writing-toolbar.html posts=topic_posts topic=page.topic %}
+  {% include post-archive.html posts=topic_posts %}
+{% else %}
+<div class="empty-state">
+  <p>Nothing filed under {{ topic.label }} yet — it is on the reading list, not the written list.</p>
+  <a class="btn" href="{{ '/blog/' | relative_url }}">Everything I have written <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+</div>
+{% endif %}
+
+<div class="sec-head sec-head--sub">
+  <h2>Other topics</h2>
+  <span class="sec-line"></span>
+  <a class="sec-more" href="{{ '/blog/' | relative_url }}">Everything →</a>
+</div>
+{% include topic-nav.html current=page.topic %}

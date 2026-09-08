@@ -1,5 +1,5 @@
 /* ============================================================
-   main.js — theme, nav, reveal-on-scroll, blog search
+   main.js — theme, nav, reveal-on-scroll, writing filters
    ============================================================ */
 
 (function () {
@@ -94,32 +94,124 @@
     items.forEach(function (el) { obs.observe(el); });
   }
 
-  /* ---- Blog search --------------------------------------------------- */
-  function initSearch() {
-    var input = document.getElementById('sidebarSearch');
-    var empty = document.getElementById('blogSearchEmpty');
-    if (!input) return;
+  /* ---- Writing filters: search + topic + year -------------------------
+     One pass over the cards for all three filters. Everything the filter
+     needs is already on each card as a data- attribute (see
+     _includes/post-card.html), so this never touches the DOM to read text,
+     and the state round-trips through the query string so a filtered view
+     can be linked or reloaded. */
+  function initWritingFilters() {
+    var bar = document.getElementById('writingFilters');
+    var archive = document.getElementById('writingArchive');
+    if (!bar || !archive) return;
 
-    var cards = Array.prototype.slice.call(document.querySelectorAll('.post-card'))
-      .filter(function (c) { return c.id !== 'blogSearchEmpty'; });
+    var input = document.getElementById('writingSearch');
+    var count = document.getElementById('writingCount');
+    var empty = document.getElementById('writingEmpty');
+    var cards = Array.prototype.slice.call(archive.querySelectorAll('.post-card'));
+    var yearGroups = Array.prototype.slice.call(archive.querySelectorAll('.archive-year'));
+    var topicChips = Array.prototype.slice.call(bar.querySelectorAll('[data-topic]'));
+    var yearChips = Array.prototype.slice.call(bar.querySelectorAll('[data-year]'));
 
-    function apply(q) {
-      q = (q || '').trim().toLowerCase();
-      var visible = 0;
-      cards.forEach(function (card) {
-        var match = !q || card.textContent.toLowerCase().indexOf(q) !== -1;
-        card.style.display = match ? '' : 'none';
-        if (match) visible++;
-      });
-      if (empty) empty.style.display = (q && visible === 0) ? 'block' : 'none';
+    var state = { q: '', topic: '', year: '' };
+
+    function matches(card) {
+      if (state.topic) {
+        /* Pad both sides so "ml" cannot match inside "ml-systems". */
+        var topics = ' ' + (card.getAttribute('data-topics') || '') + ' ';
+        if (topics.indexOf(' ' + state.topic + ' ') === -1) return false;
+      }
+      if (state.year && card.getAttribute('data-year') !== state.year) return false;
+      if (state.q && (card.getAttribute('data-text') || '').indexOf(state.q) === -1) return false;
+      return true;
     }
 
-    /* Filter as you type — no page reload, no query-string round trip. */
-    input.addEventListener('input', function () { apply(input.value); });
+    function markChips(chips, key) {
+      chips.forEach(function (chip) {
+        var active = (chip.getAttribute('data-' + key) || '') === state[key];
+        chip.classList.toggle('is-active', active);
+        chip.setAttribute('aria-pressed', String(active));
+      });
+    }
+
+    function syncUrl() {
+      if (!window.history || !window.history.replaceState) return;
+      var params = new URLSearchParams();
+      if (state.topic) params.set('topic', state.topic);
+      if (state.year) params.set('year', state.year);
+      if (state.q) params.set('search', state.q);
+      var query = params.toString();
+      history.replaceState(null, '', window.location.pathname + (query ? '?' + query : '') + window.location.hash);
+    }
+
+    function apply() {
+      var visible = 0;
+      cards.forEach(function (card) {
+        var ok = matches(card);
+        card.hidden = !ok;
+        if (ok) visible++;
+      });
+
+      /* A year heading with nothing left under it is just noise. */
+      yearGroups.forEach(function (group) {
+        group.hidden = !group.querySelector('.post-card:not([hidden])');
+      });
+
+      if (empty) empty.hidden = visible !== 0;
+      if (count) {
+        count.textContent = visible === cards.length
+          ? cards.length + (cards.length === 1 ? ' note' : ' notes')
+          : visible + ' of ' + cards.length + ' shown';
+      }
+
+      markChips(topicChips, 'topic');
+      markChips(yearChips, 'year');
+      syncUrl();
+    }
+
+    function pick(key, value) {
+      /* Clicking the chip that is already on means "drop this filter". */
+      state[key] = state[key] === value ? '' : value;
+      apply();
+    }
+
+    topicChips.forEach(function (chip) {
+      chip.addEventListener('click', function () { pick('topic', chip.getAttribute('data-topic')); });
+    });
+    yearChips.forEach(function (chip) {
+      chip.addEventListener('click', function () { pick('year', chip.getAttribute('data-year')); });
+    });
+
+    if (input) {
+      input.addEventListener('input', function () {
+        state.q = input.value.trim().toLowerCase();
+        apply();
+      });
+    }
+
+    document.addEventListener('click', function (e) {
+      var reset = e.target.closest && e.target.closest('[data-filter-reset]');
+      if (!reset) return;
+      state = { q: '', topic: '', year: '' };
+      if (input) input.value = '';
+      apply();
+    });
 
     var params = new URLSearchParams(window.location.search);
-    var initial = params.get('search');
-    if (initial) { input.value = initial; apply(initial); }
+    state.topic = params.get('topic') || '';
+    state.year = params.get('year') || '';
+    state.q = (params.get('search') || '').trim().toLowerCase();
+    if (input && state.q) input.value = params.get('search');
+
+    /* A topic or year in the URL that no chip offers would filter everything
+       away with no way back, so drop it. */
+    function offered(chips, key, value) {
+      return !value || chips.some(function (c) { return c.getAttribute('data-' + key) === value; });
+    }
+    if (!offered(topicChips, 'topic', state.topic)) state.topic = '';
+    if (!offered(yearChips, 'year', state.year)) state.year = '';
+
+    apply();
   }
 
   document.addEventListener('DOMContentLoaded', function () {
@@ -127,6 +219,6 @@
     initNav();
     initHeader();
     initReveal();
-    initSearch();
+    initWritingFilters();
   });
 })();

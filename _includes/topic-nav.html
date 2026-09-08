@@ -1,0 +1,17 @@
+{%- comment -%}
+  The topic index: one card per entry in site.topics, linking to its own page.
+  `current` (a slug) marks one as the page you are on, and turns the rest into
+  a "read something else" row.
+{%- endcomment -%}
+<div class="topic-grid">
+  {% for topic in site.topics %}
+    {% assign n = site.posts | where_exp: "p", "p.categories contains topic.slug" | size %}
+    <a class="topic-card{% if include.current == topic.slug %} is-current{% endif %}"
+       href="{{ '/blog/topics/' | append: topic.slug | append: '/' | relative_url }}">
+      <span class="topic-count">{% if n == 0 %}nothing yet{% else %}{{ n }} {% if n == 1 %}note{% else %}notes{% endif %}{% endif %}</span>
+      <h3>{{ topic.label }}</h3>
+      <p>{{ topic.blurb }}</p>
+      <span class="topic-go">{% if include.current == topic.slug %}You are here{% else %}Read <svg aria-hidden="true"><use href="#i-arrow"/></svg>{% endif %}</span>
+    </a>
+  {% endfor %}
+</div>

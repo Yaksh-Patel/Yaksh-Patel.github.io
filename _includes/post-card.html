@@ -1,8 +1,30 @@
+{%- comment -%}
+  One post card. Shared by the homepage, the Writing index and every topic page,
+  so they cannot drift apart.
+
+  The data- attributes are what main.js filters on. `data-topics` is a
+  space-joined list of category slugs, `data-year` and `data-date` drive the
+  date filtering, and `data-text` is a pre-lowercased haystack so search does
+  not have to walk the DOM on every keystroke.
+{%- endcomment -%}
 {% assign post = include.post %}
-<article class="post-card">
+{% assign topic_slugs = site.topics | map: "slug" %}
+{% capture haystack %}{{ post.title }} {{ post.excerpt | strip_html }} {{ post.categories | join: " " }} {{ post.tags | join: " " }}{% endcapture %}
+<article class="post-card"
+         data-topics="{{ post.categories | join: ' ' }}"
+         data-year="{{ post.date | date: '%Y' }}"
+         data-date="{{ post.date | date: '%Y-%m-%d' }}"
+         data-text="{{ haystack | strip_newlines | downcase | strip | escape }}">
   <div class="post-meta">
-    <span>{{ post.date | date: "%b %d, %Y" }}</span>
-    {% if post.categories.first %}<span class="post-category">{{ post.categories.first }}</span>{% endif %}
+    <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%b %-d, %Y" }}</time>
+    {% for cat in post.categories limit:2 %}
+      {%- if topic_slugs contains cat -%}
+        {% assign topic = site.topics | where: "slug", cat | first %}
+        <a class="post-category" href="{{ '/blog/topics/' | append: cat | append: '/' | relative_url }}">{{ topic.label }}</a>
+      {%- else -%}
+        <span class="post-category">{{ cat }}</span>
+      {%- endif -%}
+    {% endfor %}
     {% if post.read_time %}<span>{{ post.read_time }} min</span>{% endif %}
   </div>
   <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>

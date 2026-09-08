@@ -41,7 +41,8 @@ Push to `main`. `.github/workflows/deploy.yml` builds with Jekyll and publishes 
 | Homepage sections and order | `index.md` |
 | Bio, timeline, toolkit chips | `about/index.md` |
 | Colors, type, spacing | `assets/css/main.scss` (design tokens at the top) |
-| Theme toggle, reveal, search | `assets/js/main.js` |
+| Writing topics (the sections under Writing) | `_config.yml` → `topics` + a stub in `blog/topics/` |
+| Theme toggle, reveal, writing filters | `assets/js/main.js` |
 
 ### Design tokens
 
@@ -69,13 +70,21 @@ Mono is metadata only — labels, indices, dates, tags. Never body copy.
 ---
 title: "Post title"
 date: 2026-08-26
-categories: [ml-systems]
-tags: [Python, MLOps]
-read_time: 8        # optional
+categories: [statistics]      # topic slugs — these place the post in a section
+tags: [experimentation, power]
+read_time: 8                  # optional
+excerpt: "One sentence for the card and the search index."
 ---
 ```
 
 `layout` and `narrow` come from `_config.yml` defaults; don't set them per post.
+
+**`categories` is the routing field.** Each entry must match a `slug` under
+`topics:` in `_config.yml`, because that is what files the post into a section,
+lights up its filter chip, and turns the pill on its card into a link. More than
+one is fine — a post listing `[statistics, philosophy]` shows up under both. A
+category that is not a known topic still renders as a plain grey pill, but it
+gets no section and no filter.
 
 ### A project — `_projects/name.md`
 
@@ -107,6 +116,77 @@ projects into **Applied ML** and **AI Lab** on that flag, and the flag also adds
 
 ---
 
+## The Writing section
+
+Writing is split by topic, and every topic is reachable two ways on purpose.
+
+**Topic pages** — `/blog/topics/<slug>/` — are real pages. They are linkable,
+crawlable, in the sitemap, and they work with JavaScript switched off. Each one
+is a stub in `blog/topics/` holding nothing but front matter and a single
+`{% include writing-topic.html %}`, so the pages cannot drift apart.
+
+**Filter chips** on `/blog/` do the same job without a page load: topic, year,
+and a live search over titles, tags, categories and excerpts. The state
+round-trips through the query string, so `/blog/?topic=statistics&year=2026` is
+a link you can send someone.
+
+Posts are grouped under sticky year headings, newest first, so scrolling to a
+date works as well as filtering to one.
+
+### Adding a topic
+
+1. Add an entry to `topics:` in `_config.yml` — `slug`, `label`, `blurb`.
+2. Copy any file in `blog/topics/`, and change `topic:`, `title:` and
+   `permalink:` to the new slug.
+
+That is the whole job; counts, chips, cards and the topic grid all read from
+`site.topics`. A topic with no posts yet stays visible with its chip disabled
+and its card reading "nothing yet" — the list is meant to show the range of the
+reading, not only what has been written up.
+
+> Pagination is deliberately **off**. The archive filters in the browser, so
+> paging it would hide cards the filter is supposed to find, and would publish a
+> second copy of the listing at `/blog/page2/`.
+
+### Hand-drawn diagrams
+
+Sketches like the one in the statistical-power post are inline SVG includes:
+real plotted geometry pushed through a turbulence displacement filter, lettered
+in a handwriting face, on a fixed eggshell ground that does **not** invert with
+the theme — dark mode only takes the glare off.
+
+`_includes/diagram-power-*.html` are **generated**. The curves are real
+Gaussians, so edit the generator and re-run it rather than nudging coordinates
+in the include:
+
+```bash
+python3 tools/gen_sketch.py _includes
+```
+
+Markup for one, in a post:
+
+```html
+<figure class="sketch sketch--wide">
+  <div class="sketch-frame">{% include diagram-power-curves.html %}</div>
+  <figcaption>One line on what the picture shows.</figcaption>
+</figure>
+```
+
+`sketch--wide` lets the sheet break out of the 720px reading measure, which the
+pen labels need; `sketch-frame` gives it the border and, on phones, a sideways
+scroll so the sheet stops shrinking instead of becoming illegible.
+
+Two things to keep in mind if you draw another:
+
+- Give filters an explicit `filterUnits="userSpaceOnUse"` region. With the
+  default bounding-box units, any horizontal or vertical line has a zero-area
+  bbox, the filter region collapses to nothing, and the stroke silently
+  disappears.
+- Don't displace text. A handwriting face already reads as hand-made; running
+  glyphs through the filter just melts them.
+
+---
+
 ## Structure
 
 ```
@@ -118,11 +198,18 @@ _layouts/
 _includes/
   icons.html           inline SVG sprite — no external icon requests
   project-card.html    one card, shared by homepage and Work page
-  post-card.html       one card, shared by homepage and Writing page
+  post-card.html       one card, shared by homepage, Writing and topic pages
+  post-archive.html    posts grouped under sticky year headings
+  writing-toolbar.html search + topic + year filter chips
+  writing-topic.html   the entire body of a topic page
+  topic-nav.html       the topic grid, built from site.topics
+  diagram-power-*.html hand-drawn inline SVG sketches for one post
   social-links.html    GitHub / LinkedIn / Email button row
 index.md               homepage sections (full_bleed: true)
 about/ projects/ blog/ publications/
+blog/topics/           one stub per topic — front matter plus one include
 _posts/ _projects/
+tools/gen_sketch.py    generates the hand-drawn SVG sketches (excluded from the build)
 assets/css/main.scss   the whole design system
 assets/js/main.js      theme, nav, header hairline, reveal, live search
 ```
@@ -147,4 +234,8 @@ partial, so they cannot drift apart.
   `currentColor`. Add new symbols to `_includes/icons.html`.
 - **Reveal-on-scroll** is opt-in per element with `class="reveal"`, and is disabled under
   `prefers-reduced-motion`.
-- **Blog search** filters cards live as you type — no reload, no query round trip.
+- **Writing filters** apply search, topic and year in one pass over the cards, reading
+  pre-computed `data-` attributes rather than DOM text, and mirror their state into the
+  query string. A year heading whose posts are all filtered out hides itself.
+- **Topic pages** are the no-JavaScript path to the same content, which is why both
+  mechanisms exist.

@@ -81,18 +81,39 @@ focus_areas:
       failure modes hide, and what still needs a human in the loop.
     tags: [LLM applications, AI-assisted development, Evaluation, Deep learning]
 
-# ----- BLOG SIDEBAR CATEGORIES -----
-sidebar_categories:
-  - label: "ml-systems"
-    url: "/blog/category/ml-systems/"
-  - label: "machine-learning"
-    url: "/blog/category/machine-learning/"
-  - label: "credit-risk"
-    url: "/blog/category/credit-risk/"
-  - label: "python"
-    url: "/blog/category/python/"
-  - label: "statistics"
-    url: "/blog/category/statistics/"
+# ----- WRITING TOPICS -----
+# The Writing section is split by topic. A post joins a topic by listing the
+# slug in its `categories` (more than one is fine). Each topic also gets its
+# own page, so the URL is shareable and shows up in the sitemap.
+#
+# To add a topic: add an entry here, then copy any file in blog/topics/ and
+# change its `topic:` and `permalink:` to the new slug. Two steps, no plugin.
+topics:
+  - slug: "ml-systems"
+    label: "ML Systems"
+    blurb: >
+      Production machine learning — feature pipelines, serving, monitoring, and the
+      architecture calls that decide whether a model holds up under real traffic.
+  - slug: "statistics"
+    label: "Statistics"
+    blurb: >
+      Inference, experiment design and measurement: error rates, power, and what a
+      number is actually entitled to claim.
+  - slug: "mathematics"
+    label: "Mathematics"
+    blurb: >
+      Linear algebra, probability, optimisation — the machinery underneath the models,
+      worked through slowly rather than looked up.
+  - slug: "psychology"
+    label: "Psychology"
+    blurb: >
+      How attention, memory and motivation actually behave, and what that implies for
+      the tools and habits built on top of them.
+  - slug: "philosophy"
+    label: "Philosophy"
+    blurb: >
+      Epistemology, ethics, philosophy of mind — largely the question of what counts as
+      knowing something, which turns out to matter when you build models of the world.
 
 # ----- JEKYLL BUILD -----
 sass:
@@ -136,10 +157,10 @@ plugins:
   - jekyll-feed
   - jekyll-sitemap
   - jekyll-seo-tag
-  - jekyll-paginate
 
-paginate: 10
-paginate_path: "/blog/page:num/"
+# No pagination. The Writing archive is grouped by year and filtered in the
+# browser, so slicing it into pages would hide cards the filter is meant to
+# find -- and would publish a second copy of the listing at /blog/page2/.
 
 exclude:
   - README.md
@@ -147,3 +168,4 @@ exclude:
   - Gemfile.lock
   - node_modules
   - vendor
+  - tools            # diagram generator; not part of the site output

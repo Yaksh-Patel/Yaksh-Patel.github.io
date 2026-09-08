@@ -1,0 +1,49 @@
+{%- comment -%}
+  Search + topic + year filters for the Writing pages. All three are applied
+  client-side by main.js against the data- attributes on the post cards, and
+  mirrored into the query string so a filtered view can be linked.
+
+  Pass `posts`. Pass `topic` (a slug) on a topic page to drop the topic row,
+  since the page itself is already the topic filter.
+{%- endcomment -%}
+{% assign tb_posts = include.posts %}
+{% assign tb_years = tb_posts | group_by_exp: "p", "p.date | date: '%Y'" %}
+
+<div class="filter-bar" id="writingFilters" data-total="{{ tb_posts.size }}">
+  <div class="filter-row filter-row--search">
+    <label class="search-bar">
+      <svg aria-hidden="true"><use href="#i-search"/></svg>
+      <input type="search" id="writingSearch" placeholder="Search titles, tags, summaries…" aria-label="Search writing" />
+    </label>
+    <span class="filter-count" id="writingCount" aria-live="polite"></span>
+  </div>
+
+  {% unless include.topic %}
+  <div class="filter-row">
+    <span class="filter-label">Topic</span>
+    <div class="chip-set" role="group" aria-label="Filter by topic">
+      <button type="button" class="chip-btn is-active" data-topic="">All</button>
+      {% for topic in site.topics %}
+        {% assign n = tb_posts | where_exp: "p", "p.categories contains topic.slug" | size %}
+        <button type="button" class="chip-btn" data-topic="{{ topic.slug }}"{% if n == 0 %} disabled title="No notes filed here yet"{% endif %}>
+          {{ topic.label }}<span class="chip-num">{{ n }}</span>
+        </button>
+      {% endfor %}
+    </div>
+  </div>
+  {% endunless %}
+
+  {% if tb_years.size > 1 or include.topic %}
+  <div class="filter-row">
+    <span class="filter-label">Year</span>
+    <div class="chip-set" role="group" aria-label="Filter by year">
+      <button type="button" class="chip-btn is-active" data-year="">All</button>
+      {% for year in tb_years %}
+        <button type="button" class="chip-btn" data-year="{{ year.name }}">
+          {{ year.name }}<span class="chip-num">{{ year.items.size }}</span>
+        </button>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+</div>
