@@ -147,6 +147,19 @@ full_bleed: true
       <a class="sec-more" href="{{ '/blog/' | relative_url }}">All posts →</a>
     </div>
 
+    {%- comment -%}
+      The range of the reading, stated up front. No counts here on purpose:
+      the homepage is not the place to advertise which shelves are still
+      empty — /blog/ carries the counts.
+    {%- endcomment -%}
+    {% if site.topics.size > 0 %}
+    <div class="chip-set chip-set--lead reveal">
+      {% for topic in site.topics %}
+      <a class="chip-btn" href="{{ '/blog/topics/' | append: topic.slug | append: '/' | relative_url }}">{{ topic.label }}</a>
+      {% endfor %}
+    </div>
+    {% endif %}
+
     <div class="card-list">
       {% for post in site.posts limit:3 %}
         <div class="reveal">{% include post-card.html post=post %}</div>

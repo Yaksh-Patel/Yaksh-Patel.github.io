@@ -1137,6 +1137,10 @@ code, pre { font-family: var(--font-mono); }
 
 .chip-set { display: flex; flex-wrap: wrap; gap: 6px; }
 
+/* The same chips used as navigation rather than as filters. */
+.chip-set--lead { margin: -8px 0 18px; }
+a.chip-btn { color: var(--text-muted); }
+
 .chip-btn {
   display: inline-flex;
   align-items: baseline;
@@ -1291,13 +1295,13 @@ a.post-category:hover { background: var(--accent); color: #fff; }
 
 [data-theme="dark"] .sketch .sketch-frame { filter: brightness(.9) saturate(.94); }
 
-/* Display math. The delimiters are written raw inside a block-level element so
-   kramdown hands them to MathJax untouched, rather than routing them through
-   its own engine, which still emits MathJax-2 script tags. */
-.math-block {
-  margin: 24px 0;
-  text-align: center;
+/* Display math. kramdown turns $$..$$ into \[..\] and MathJax typesets it into
+   an mjx-container of its own, outside the .post-content > * + * flow -- so the
+   only thing worth adding is a scroll for equations wider than the column. */
+.post-content mjx-container[display="true"] {
   overflow-x: auto;
+  overflow-y: hidden;
+  padding: 3px 0;
 }
 
 /* Let a sketch break out of the reading measure: at 720px the pen labels get

@@ -185,6 +185,25 @@ Two things to keep in mind if you draw another:
 - Don't displace text. A handwriting face already reads as hand-made; running
   glyphs through the filter just melts them.
 
+### Math
+
+`$$ ... $$` for display, `$ ... $` for inline. Both work: kramdown 2.x converts
+`$$..$$` into `\[..\]` (block) or `\(..\)` (inline), which is exactly what
+MathJax 3 reads, and it leaves single-`$` spans alone for MathJax to pick up via
+the `inlineMath` config in `_layouts/default.html`.
+
+Two things that do **not** work, both verified against kramdown 2.4.0:
+
+- **Never write raw `\[ .. \]` or `\( .. \)` in markdown body text.** Kramdown
+  treats the backslash as an escape and strips it, so `\( x^2 \)` reaches the
+  browser as a literal `( x^2 )` and MathJax never sees a delimiter. They survive
+  only inside a block-level HTML element, where kramdown passes the content
+  through untouched. Just use `$$`.
+- **Two dollar signs in one paragraph become math.** Because `$..$` is enabled as
+  an inline delimiter site-wide, prose like "it cost $5 and then $10 more"
+  typesets "5 and " as an equation. Put currency in backticks — MathJax skips
+  `code` and `pre` — or keep it to one `$` per paragraph.
+
 ---
 
 ## Structure

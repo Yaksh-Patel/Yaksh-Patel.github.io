@@ -35,9 +35,9 @@ That's the whole apparatus. Two curves and a line.
 The thing I had never internalised is what sets the width of those curves. Both
 curves have the same width, and that width is the standard error:
 
-<div class="math-block">
-\[ \text{SE} \;=\; \sigma \sqrt{\tfrac{2}{n}} \]
-</div>
+$$
+\text{SE} \;=\; \sigma \sqrt{\tfrac{2}{n}}
+$$
 
 for a two-group comparison. Once that clicked, every lever became visible instead
 of algebraic. I stopped asking "what does the formula say" and started asking
