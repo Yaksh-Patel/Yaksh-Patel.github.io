@@ -36,7 +36,7 @@ The thing I had never internalised is what sets the width of those curves. Both
 curves have the same width, and that width is the standard error:
 
 $$
-\text{SE} \;=\; \sigma \sqrt{\tfrac{2}{n}}
+\text{SE} \;=\; \sigma \sqrt{\frac{2}{n}}
 $$
 
 for a two-group comparison. Once that clicked, every lever became visible instead
