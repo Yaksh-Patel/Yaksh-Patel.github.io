@@ -156,6 +156,8 @@ code, pre { font-family: var(--font-mono); }
     height: 1px;
     background: var(--accent);
     flex-shrink: 0;
+    align-self: flex-start;
+    margin-top: .58em;
   }
 }
 
@@ -258,23 +260,13 @@ code, pre { font-family: var(--font-mono); }
     transform: rotate(-4deg) scale(1.04);
   }
 
-  .brand-text { display: flex; flex-direction: column; line-height: 1.15; }
+  .brand-text { display: flex; align-items: center; line-height: 1.1; }
 
   .brand-name {
     font-family: var(--font-display);
     font-weight: 600;
-    font-size: .97rem;
-    letter-spacing: -.015em;
-  }
-
-  .brand-role {
-    font-family: var(--font-mono);
-    font-size: .58rem;
-    font-weight: 500;
-    letter-spacing: .16em;
-    text-transform: uppercase;
-    color: var(--text-faint);
-    margin-top: 1px;
+    font-size: 1.22rem;
+    letter-spacing: -.02em;
   }
 }
 
@@ -405,6 +397,32 @@ code, pre { font-family: var(--font-mono); }
   span { color: var(--text-faint); }
 }
 
+/* Tenure: the one number in the hero, counted from site.career. The figure is
+   set in the display face so it reads as a credential, the trailing phrase stays
+   in the same mono voice as the name line above it. */
+.hero-tenure {
+  margin-top: 10px;
+
+  .tenure-num {
+    margin-right: 4px;   /* plus the source whitespace between the two spans */
+    font-family: var(--font-display);
+    font-size: 1.32rem;
+    font-weight: 600;
+    letter-spacing: -.02em;
+    color: var(--accent);
+    line-height: 1;
+  }
+
+  .tenure-text {
+    font-family: var(--font-mono);
+    font-size: .74rem;
+    font-weight: 500;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+  }
+}
+
 .hero-blurb {
   margin-top: 18px;
   max-width: 62ch;
@@ -480,37 +498,6 @@ code, pre { font-family: var(--font-mono); }
     border: 1px solid var(--accent-line);
     border-radius: var(--radius-lg);
     z-index: -1;
-  }
-}
-
-/* Stat strip under the hero. */
-.hero-stats {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  border-top: 1px solid var(--border-soft);
-  margin-top: 56px;
-
-  .stat {
-    padding: 20px 22px 20px 0;
-    border-right: 1px solid var(--border-soft);
-    &:last-child { border-right: none; }
-  }
-
-  .stat-num {
-    font-family: var(--font-display);
-    font-size: 1.6rem;
-    font-weight: 600;
-    letter-spacing: -.02em;
-    color: var(--text);
-  }
-
-  .stat-label {
-    font-family: var(--font-mono);
-    font-size: .64rem;
-    letter-spacing: .12em;
-    text-transform: uppercase;
-    color: var(--text-faint);
-    margin-top: 4px;
   }
 }
 
@@ -1400,7 +1387,6 @@ a.post-category:hover { background: var(--accent); color: #fff; }
   .hero-inner { grid-template-columns: 1fr; gap: 34px; }
   .hero-portrait { order: -1; width: 132px; img, .portrait-fallback { width: 132px; height: 156px; } }
   .hero { padding-top: 56px; }
-  .hero-stats { margin-top: 40px; }
 }
 
 @media (max-width: 720px) {
@@ -1411,8 +1397,6 @@ a.post-category:hover { background: var(--accent); color: #fff; }
   .mobile-nav ul { padding: 8px 20px 14px; }
   .footer-inner { padding: 0 20px; flex-direction: column; }
   .section { padding: 56px 0; }
-  .hero-stats .stat { border-right: none; border-bottom: 1px solid var(--border-soft); padding: 16px 0; }
-  .hero-stats .stat:last-child { border-bottom: none; }
   .feature-band { padding: 26px 22px; }
   .sec-head { flex-wrap: wrap; gap: 10px; .sec-line { display: none; } }
   .archive-head { top: 58px; }
@@ -1426,7 +1410,6 @@ a.post-category:hover { background: var(--accent); color: #fff; }
 }
 
 @media (max-width: 560px) {
-  .brand .brand-role { display: none; }
   .project-spec .spec-row,
   .project-spec.project-spec--page .spec-row { grid-template-columns: 1fr; gap: 2px; padding: 8px 0; }
   .project-card .project-header { flex-direction: column; }

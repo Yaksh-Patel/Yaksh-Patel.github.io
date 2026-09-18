@@ -37,7 +37,7 @@ Push to `main`. `.github/workflows/deploy.yml` builds with Jekyll and publishes 
 | Name, role, tagline, socials, nav | `_config.yml` → `author`, `nav_pages` |
 | Hero headline, blurb, affiliations | `_config.yml` → `hero` |
 | "What I work on" cards | `_config.yml` → `focus_areas` |
-| Hero stat numbers | `index.md` → `.hero-stats` |
+| Years of experience in the hero | `_config.yml` → `career` (counts from the start date, steps every 6 months) |
 | Homepage sections and order | `index.md` |
 | Bio, timeline, toolkit chips | `about/index.md` |
 | Colors, type, spacing | `assets/css/main.scss` (design tokens at the top) |

@@ -4,20 +4,28 @@
 
 # ----- IDENTITY -----
 title: "Yaksh Patel"
-tagline: "ML Engineering · AI Systems · Production ML"
+
+# `tagline` is what jekyll-seo-tag appends to the site title on any page whose
+# own title matches it — in practice the homepage, which deliberately carries no
+# `title:` front matter so the tab and the search result read
+# "Yaksh Patel | Data Science, Machine Learning & Risk".
+tagline: "Data Science, Machine Learning & Risk"
+
+# The meta description. Kept near 155 characters so search results don't clip it.
 description: >
-  Yaksh Patel — ML engineer building production machine learning systems:
-  feature pipelines, model serving, monitoring, and the design decisions that
-  keep models reliable under real traffic.
+  Yaksh Patel — data science, machine learning and risk. I build the models
+  behind credit, fraud and risk decisions, and keep them reliable in production.
 
 author:
   name: "Yaksh Patel"
   short_name: "Yaksh"
   initials: "YP"
-  role: "ML Engineer"
+  # Shown on the About page as "<role> · <location>". A field rather than a job
+  # title, so it stays true across roles.
+  role: "Data Science, Machine Learning & Risk"
   bio: >
-    I build machine learning systems that run in production — and stay correct
-    once they get there.
+    I build the models behind credit, fraud and risk decisions — and care most
+    about what happens after they ship.
   location: "Bengaluru, India"
   avatar: "/assets/images/avatar.jpg"
   email: "yaksh.10.patel@gmail.com"
@@ -27,16 +35,17 @@ author:
 
 # One-line positioning used in the hero
 hero:
-  eyebrow: "ML Systems · AI Engineering"
+  eyebrow: "Data Science & Analytics · Machine Learning · Risk Management"
   headline_lead: "I build machine learning systems"
   headline_accent: "that survive production."
   blurb: >
-    Four years of shipping models into high-stakes decision systems — credit,
-    fraud, risk — where silent drift is a business problem, not an academic one.
+    I ship models into high-stakes decision systems — credit, fraud, risk —
+    where silent drift is a business problem, not an academic one.
     My work sits on the systems side of ML: feature pipelines, training and
     validation that respect time, serving, monitoring, and the architecture calls
     that decide whether a model holds up under real traffic.
   affiliations: "PayZen · ex-Goldman Sachs · IIT Kharagpur"
+  tenure_suffix: "years in data science, machine learning and risk"
 
 # ----- URLS -----
 baseurl: ""
@@ -53,9 +62,14 @@ nav_pages:
   - title: "Writing"
     url: "/blog/"
 
-# ----- HOMEPAGE STATS -----
-stats:
-  years_experience: 4
+# ----- CAREER START -----
+# The hero tenure ("4+ years ...") counts from here and steps in six-month
+# increments: 3, 3.5, 4, 4.5 ... Jekyll renders the value at build time so the
+# page is correct without JavaScript; assets/js/main.js recomputes it on load
+# so a site that has not been rebuilt in a while does not go stale.
+career:
+  start_year: 2022
+  start_month: 6
 
 # ----- HOMEPAGE FOCUS CARDS -----
 focus_areas:

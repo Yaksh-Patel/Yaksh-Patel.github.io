@@ -1,6 +1,8 @@
 ---
 layout: default
-title: Home
+# No `title:` on purpose. jekyll-seo-tag falls back to the site title, which
+# makes it append site.tagline — so the tab reads "Yaksh Patel | Data Science,
+# Machine Learning & Risk" rather than "Home | Yaksh Patel".
 full_bleed: true
 ---
 
@@ -18,6 +20,26 @@ full_bleed: true
 
         <p class="hero-name">{{ site.author.name }} <span>— {{ site.hero.affiliations }}</span></p>
 
+        {%- comment -%}
+          Tenure, counted from site.career and rounded down to the nearest half
+          year, so it reads 3 · 3.5 · 4 · 4.5 as time passes rather than needing
+          an edit. Rendered here at build time; main.js recomputes it on load so
+          the number is right even between deploys.
+        {%- endcomment -%}
+        {%- assign now_y = 'now' | date: "%Y" | plus: 0 -%}
+        {%- assign now_m = 'now' | date: "%-m" | plus: 0 -%}
+        {%- assign months = now_y | minus: site.career.start_year | times: 12 | plus: now_m | minus: site.career.start_month -%}
+        {%- assign halves = months | divided_by: 6 -%}
+        {%- assign whole  = halves | divided_by: 2 -%}
+        {%- assign half   = halves | modulo: 2 -%}
+        <p class="hero-tenure">
+          <span class="tenure-num"
+                data-tenure
+                data-start-year="{{ site.career.start_year }}"
+                data-start-month="{{ site.career.start_month }}">{{ whole }}{% if half == 1 %}.5{% endif %}+</span>
+          <span class="tenure-text">{{ site.hero.tenure_suffix }}</span>
+        </p>
+
         <p class="hero-blurb">{{ site.hero.blurb }}</p>
 
         <div class="hero-actions">
@@ -34,21 +56,6 @@ full_bleed: true
         {% else %}
         <div class="portrait-fallback">🧑‍💻</div>
         {% endif %}
-      </div>
-    </div>
-
-    <div class="hero-stats">
-      <div class="stat">
-        <div class="stat-num">{{ site.stats.years_experience }}+</div>
-        <div class="stat-label">Years in production ML</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num">3</div>
-        <div class="stat-label">Domains: credit, fraud, risk</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num">54</div>
-        <div class="stat-label">Topics in the open ML guide</div>
       </div>
     </div>
   </div>

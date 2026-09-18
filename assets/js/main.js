@@ -214,10 +214,36 @@
     apply();
   }
 
+  /* ---- Tenure ---------------------------------------------------------
+     The hero states years of experience, counted from the start date on the
+     element and rounded DOWN to the nearest half year: 3, 3.5, 4, 4.5 ...
+     Jekyll already rendered the value at build time, so this only matters
+     when the page is served from a build older than the current half-year
+     step -- which, on a site that deploys on push, is most of the time. */
+  function initTenure() {
+    var els = document.querySelectorAll('[data-tenure]');
+    if (!els.length) return;
+
+    var now = new Date();
+    Array.prototype.forEach.call(els, function (el) {
+      var y = parseInt(el.getAttribute('data-start-year'), 10);
+      var m = parseInt(el.getAttribute('data-start-month'), 10);
+      if (!y || !m) return;
+
+      var months = (now.getFullYear() - y) * 12 + (now.getMonth() + 1 - m);
+      if (months < 0) months = 0;
+
+      var halves = Math.floor(months / 6);
+      var years = halves / 2;
+      el.textContent = (halves % 2 === 0 ? String(years) : years.toFixed(1)) + '+';
+    });
+  }
+
   document.addEventListener('DOMContentLoaded', function () {
     initTheme();
     initNav();
     initHeader();
+    initTenure();
     initReveal();
     initWritingFilters();
   });
